@@ -5,13 +5,13 @@
     <title>Aplicación Microservicios Plantilla</title>
 
     <!-- Cargamos biblioteca Jasmine -->
-
+    <!--
     <link rel="stylesheet" href="lib/jasmine-4.5.0/jasmine.css">
     <script src="lib/jasmine-4.5.0/jasmine.js"></script>
     <script src="lib/jasmine-4.5.0/jasmine-html.js"></script>
     <script src="lib/jasmine-4.5.0/boot0.js"></script>
     <script src="lib/jasmine-4.5.0/boot1.js"></script>
-
+    -->
     <!-- Cargamos nuestros CSS -->
     <link rel="stylesheet" href="css/front-end.css">
 
@@ -19,13 +19,15 @@
 </head>
 
 <body>
-    <h1>Aplicación Microservicios Plantilla</h1>
+    <h1>Halterofilia en las Olimpiadas</h1>
     <!-- Barra de navegación de la aplicación -->
     <nav>
         <a href="javascript:Plantilla.procesarHome()" class="opcion-principal"
             title="Llama a la ruta / del MS Plantilla">Home</a>
         <a href="javascript:Plantilla.procesarAcercaDe()" class="opcion-principal"
             title="Llama a la ruta /acercade del MS Plantilla">Acerca de</a>
+        <a href="javascript:Personas.listar()" class="opcion-principal mostrar"
+            title="Listar todas los deportistas en la base de datos">Deportistas</a>
     </nav>
 
     <!-- 
