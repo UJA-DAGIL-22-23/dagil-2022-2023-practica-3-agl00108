@@ -146,7 +146,6 @@ Plantilla.procesarAcercaDe = function () {
  * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD.
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
  */
-
 Plantilla.imprimeDeportistas = function (vector) {
 
     let msj = "";
@@ -159,11 +158,35 @@ Plantilla.imprimeDeportistas = function (vector) {
 }
 
 /**
+ * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD alfabétiamente.
+ * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
+ */
+Plantilla.imprimeDeportistasAlf = function (vector) 
+{
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    let ordenados=vector.data.sort((a, b) => a.data.nombre<b.data.nombre?-1:1); // ordena los elementos por el campo "nombre"
+    ordenados.forEach(e => msj += Plantilla.cuerpoTr(e));
+    msj += Plantilla.pieTable();
+  
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar("Listado de deportistas ordenados alfabéticamente", msj);
+}
+
+/**
  * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas.
  */
 Plantilla.listar=function()
 {
     this.descargarRuta("/plantilla/getTodas",this.imprimeDeportistas);
+}
+
+/**
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas.
+ */
+Plantilla.listarAlf=function()
+{
+    this.descargarRuta("/plantilla/getTodas",this.imprimeDeportistasAlf);
 }
 
 
