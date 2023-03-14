@@ -34,7 +34,20 @@ describe('API Gateway: rutas estáticas', () => {
         .expect(function (res) {
           //console.log( "BODY ACERCA DE ", res.body ); // Para comprobar qué contiene exactamente res.body
           assert(res.body.hasOwnProperty('mensaje'));
-          assert(res.body.mensaje === "Microservicio MS Plantilla: acerca de");
+          assert(res.body.mensaje === "Datos de la autora");
+
+        })
+        .end((error) => { error ? done.fail(error) : done() })
+    });
+    it('Obtiene todos los deportistas: debe tener un campo data que es un array de 10 objetos', (done) => {
+      supertest(app)
+        .get('/plantilla/getTodas')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( "Get Todos Personas", res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.hasOwnProperty('data'));
+          assert(res.body.data.length === 10);
 
         })
         .end((error) => { error ? done.fail(error) : done() })

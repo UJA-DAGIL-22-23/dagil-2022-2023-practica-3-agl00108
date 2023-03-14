@@ -27,7 +27,7 @@ Plantilla.datosDescargadosNulos = {
 Plantilla.cabeceraTable = function () {
     return `<table class="listado-proyectos">
         <thead>
-        <th>Alias</th><th>Nombre</th>
+        <th>Nombre del deportista</th>
         </thead>
         <tbody>
     `;
@@ -147,15 +147,15 @@ Plantilla.procesarAcercaDe = function () {
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
  */
 
-Personas.imprimeDeportistas = function (vector) {
+Plantilla.imprimeDeportistas = function (vector) {
 
     let msj = "";
     msj += Plantilla.cabeceraTable();
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    vector.data.forEach(e => msj += Plantilla.cuerpoTr(e))
     msj += Plantilla.pieTable();
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
-    Frontend.Article.actualizar( "Listado de proyectos", msj )
+    Frontend.Article.actualizar( "Listado de deportistas", msj )
 }
 
 /**
