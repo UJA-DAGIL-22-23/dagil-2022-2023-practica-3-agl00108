@@ -3,10 +3,9 @@
  * @description Callbacks para el MS Plantilla.
  * Los callbacks son las funciones que se llaman cada vez que se recibe una petición a través de la API.
  * Las peticiones se reciben en las rutas definidas en routes.js, pero se procesan aquí.
- * @author Víctor M. Rivas <vrivas@ujaen.es>
- * @date 03-feb-2023
+ * @author Alba Gómez Liébana <agl00108@red.ujaen.es>
+ * @date 07-mar-2023
  */
-
 
 
 // Necesario para conectar a la BBDD faunadb
@@ -61,6 +60,27 @@ const CB_MODEL_SELECTS = {
         }
     },
 
+    /**
+     * Método para obtener todas las personas de la BBDD.
+     * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
+     * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
+     */
+    getTodas: async (req, res) => {
+        try {
+            let personas = await client.query(
+                q.Map(
+                    q.Paginate(q.Documents(q.Collection(COLLECTION))),
+                    q.Lambda("X", q.Get(q.Var("X")))
+                )
+            )
+            CORS(res)
+                .status(200)
+                .json(personas)
+        } catch (error) {
+            CORS(res).status(500).json({ error: error.description })
+        }
+    },
+
 }
 
 
@@ -102,9 +122,13 @@ const CB_OTHERS = {
         }
     },
 
+
+
 }
 
 // Une todos los callbacks en un solo objeto para poder exportarlos.
 // MUY IMPORTANTE: No debe haber callbacks con el mismo nombre en los distintos objetos, porque si no
 //                 el último que haya SOBREESCRIBE a todos los anteriores.
 exports.callbacks = { ...CB_MODEL_SELECTS, ...CB_OTHERS }
+
+//CB_OTHERS.getTodas();

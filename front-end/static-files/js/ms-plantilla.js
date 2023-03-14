@@ -19,6 +19,40 @@ Plantilla.datosDescargadosNulos = {
 }
 
 
+
+/**
+ * Crea la cabecera para mostrar la info como tabla
+ * @returns Cabecera de la tabla
+ */
+Plantilla.cabeceraTable = function () {
+    return `<table class="listado-proyectos">
+        <thead>
+        <th>Alias</th><th>Nombre</th>
+        </thead>
+        <tbody>
+    `;
+}
+
+/**
+ * Muestra la información de cada proyecto en un elemento TR con sus correspondientes TD
+ * @param {proyecto} p Datos del proyecto a mostrar
+ * @returns Cadena conteniendo todo el elemento TR que muestra el proyecto.
+ */
+Plantilla.cuerpoTr = function (p) {
+    const d = p.data
+
+    return `<tr title="${p.ref['@ref'].id}">
+    <td><em>${d.nombre}</em></td>
+    </tr>
+    `;
+}
+
+    Plantilla.pieTable = function () {
+        return "</tbody></table>";
+    }
+
+
+
 /**
  * Función que descarga la info MS Plantilla al llamar a una de sus rutas
  * @param {string} ruta Ruta a descargar
@@ -106,6 +140,32 @@ Plantilla.procesarHome = function () {
 Plantilla.procesarAcercaDe = function () {
     this.descargarRuta("/plantilla/acercade", this.mostrarAcercaDe);
 }
+
+
+/**
+ * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD.
+ * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
+ */
+
+Personas.imprimeDeportistas = function (vector) {
+
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de proyectos", msj )
+}
+
+/**
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas.
+ */
+Plantilla.listar=function()
+{
+    this.descargarRuta("/plantilla/getTodas",this.imprimeDeportistas);
+}
+
 
 
 
