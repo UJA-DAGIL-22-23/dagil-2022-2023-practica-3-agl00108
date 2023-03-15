@@ -13,22 +13,13 @@ const elementoContenido = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_
 const TITULO_HOME = "Plantilla Home"
 const TITULO_ACERCA_DE = "Plantilla Acerca de"
 
-const datosDescargadosPrueba = {
+const datosDescargadosPrueba = 
+{
     mensaje: "Mensaje de prueba descargado",
     autor: "Prueba de autor",
     email: "Prueba de email",
     fecha: "00/00/0000"
 }
-const vectorO = {
-    data: [
-        { nombre: "Ana" },
-        { nombre: "Luis" }
-    ]
-};
-
-
-
-
 
 // Función para esperar y dar tiempo a que responda el microservicio
 function esperar(ms) {
@@ -130,9 +121,44 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
             expect(elementoContenido.innerHTML.search(datosDescargadosPrueba.email) >= 0).toBeTrue()
             expect(elementoContenido.innerHTML.search(datosDescargadosPrueba.fecha) >= 0).toBeTrue()
         })
+})
+describe("Plantilla.imprimeDeportistas: ", function () 
+    {
+        it("Observa si los nombres se muestran",
+        function () {
+            let vector = {}
+            vector.data = [
+                {
+                    ref: {
+                        "@ref": {
+                            id: "Id de Luis"
+                        }
+                    },
+                    data: {
+                        nombre: "Luis"
+                    }
+                },
+                {
+                    ref: {
+                        "@ref": {
+                            id: "Id de Ana"
+                        }
+                    },
+                    data: {
+                        nombre: "Ana"
+                    }
+                }
+            ]
+            Plantilla.imprimeDeportistas(vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Ana
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.search('Luis') >= 0).toBeTrue()
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Luis')).toBeTrue()
+        })
+    })
 
-
-    it("Observa si los nombres se ordenan alfabéticamente",
+    describe("Plantilla.imprimeDeportistasAlf: ", function () 
+    {
+        it("Observa si los nombres se ordenan alfabéticamente",
         function () {
             let vector = {}
             vector.data = [
@@ -163,7 +189,42 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
             expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Ana')).toBeTrue()
 
         })
-})
+    })
+
+    describe("Plantilla.imprimeCompleto: ", function () 
+    {
+        it("Observa si se muestran todos los campos",
+        function () {
+            let vector = {}
+            vector.data = [
+                {
+                    ref: {
+                        "@ref": {
+                            id: "Id de Luis"
+                        }
+                    },
+                    data: {
+                        nombre: "Luis"
+                    }
+                },
+                {
+                    ref: {
+                        "@ref": {
+                            id: "Id de Ana"
+                        }
+                    },
+                    data: {
+                        nombre: "Ana"
+                    }
+                }
+            ]
+            Plantilla.imprimeDeportistasAlf(vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Ana
+            //expect(elementoContenido.getElementsByTagName("td")[0].innerText.search('Pepito') >= 0).toBeTrue()
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Ana')).toBeTrue()
+
+        })
+    })
 
 
 /*

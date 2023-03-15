@@ -131,4 +131,4 @@ const CB_OTHERS = {
 //                 el último que haya SOBREESCRIBE a todos los anteriores.
 exports.callbacks = { ...CB_MODEL_SELECTS, ...CB_OTHERS }
 
-CB_MODEL_SELECTS.getTodas();
+//CB_MODEL_SELECTS.getTodas();

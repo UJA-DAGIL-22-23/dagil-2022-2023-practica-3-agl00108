@@ -18,14 +18,13 @@ Plantilla.datosDescargadosNulos = {
     fecha: ""
 }
 
-
-
 /**
- * Crea la cabecera para mostrar la info como tabla
- * @returns Cabecera de la tabla
+ * Crea la cabecera para mostrar la info como tabla de los nombres de los deportistas
+ * @returns Cabecera de la tabla 
  */
-Plantilla.cabeceraTable = function () {
-    return `<table class="listado-proyectos">
+Plantilla.cabeceraTableNombre = function () 
+{
+    return `<table class="listado-nombres">
         <thead>
         <th>Nombre del deportista</th>
         </thead>
@@ -35,10 +34,10 @@ Plantilla.cabeceraTable = function () {
 
 /**
  * Muestra la información de cada proyecto en un elemento TR con sus correspondientes TD
- * @param {proyecto} p Datos del proyecto a mostrar
+ * @param {proyecto} p Datos del proyecto a mostrar con los nombres de los deportistas
  * @returns Cadena conteniendo todo el elemento TR que muestra el proyecto.
  */
-Plantilla.cuerpoTr = function (p) {
+Plantilla.cuerpoTrNombre = function (p) {
     const d = p.data
 
     return `<tr title="${p.ref['@ref'].id}">
@@ -47,18 +46,89 @@ Plantilla.cuerpoTr = function (p) {
     `;
 }
 
-    Plantilla.pieTable = function () {
-        return "</tbody></table>";
+/**
+ * Muestra el pie de tabla de los nombres de los deportistas
+ * @returns Cadena conteniendo el pie de tabla
+ */
+Plantilla.pieTableNombre = function () 
+{
+    return "</tbody></table>";
+}
+
+/**
+ * Crea la cabecera para mostrar la info como tabla de los nombres de los deportistas
+ * @returns Cabecera de la tabla 
+ */
+Plantilla.cabeceraTable = function () 
+{
+    return `<table width="100%" class="listado-deportistas">
+    <thead>
+        <th width="20%">Nombre</th>
+        <th width="20%">Apellidos</th>
+        <th width="15%">País</th>
+        <th width="15%">Categoría de Halterofilia</th>
+        <th width="15%">Sexo</th>
+        <th width="15%">Año participación olimpiadas</th>
+        <th width="15%">Número de medallas ganadas</th>
+        <th width="15%">Logros</th>
+    </thead>
+    <tbody>
+    `;
+}
+
+/**
+ * Muestra la información de cada proyecto en un elemento TR con sus correspondientes TD
+ * @param {proyecto} p Datos del proyecto a mostrar con los nombres de los deportistas
+ * @returns Cadena conteniendo todo el elemento TR que muestra el proyecto.
+ */
+Plantilla.cuerpoTr = function (p) 
+{
+    const d = p.data
+        const fecha = new Date(d.fechaNacimiento.anio, d.fechaNacimiento.mes - 1, d.fechaNacimiento.dia);
+        const fechaFormateada = fecha.toLocaleDateString();
+    let aniosParticipacion = '';
+    for (let anio of d.aniosParticipacionOlimpiadas) 
+    {
+        aniosParticipacion += `<td>${anio}</td>`;
     }
 
+    let logrosO = '';
+    for (let logro of d.logros) 
+    {
+        logrosO += `<td>${logro}</td>`;
+    }
 
+    return `<tr title="${p.ref['@ref'].id}">
+        <td>${d.nombre}</td>
+        <td>${d.apellidos}</td>
+        <td>${d.pais}</td>
+        <td>${d.categoria}</td>
+        <td>${d.sexo}</td>
+        <td>${fechaFormateada}</td>
+        ${aniosParticipacion}
+        <td>${d.numMedallasGanadas}</td>
+        ${logrosO}
+    </tr>
+    `;
+
+}
+
+/**
+ * Muestra el pie de tabla de los nombres de los deportistas
+ * @returns Cadena conteniendo el pie de tabla
+ */
+Plantilla.pieTable = function () 
+{
+    return "</tbody></table>";
+}
 
 /**
  * Función que descarga la info MS Plantilla al llamar a una de sus rutas
  * @param {string} ruta Ruta a descargar
  * @param {función} callBackFn Función a la que se llamará una vez recibidos los datos.
  */
-Plantilla.descargarRuta = async function (ruta, callBackFn) {
+Plantilla.descargarRuta = async function (ruta, callBackFn) 
+{
     let response = null
 
     // Intento conectar con el microservicio Plantilla
@@ -146,12 +216,13 @@ Plantilla.procesarAcercaDe = function () {
  * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD.
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
  */
-Plantilla.imprimeDeportistas = function (vector) {
+Plantilla.imprimeDeportistas = function (vector) 
+{
 
     let msj = "";
-    msj += Plantilla.cabeceraTable();
-    vector.data.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+    msj += Plantilla.cabeceraTableNombre();
+    vector.data.forEach(e => msj += Plantilla.cuerpoTrNombre(e))
+    msj += Plantilla.pieTableNombre();
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar( "Listado de deportistas", msj )
@@ -164,13 +235,29 @@ Plantilla.imprimeDeportistas = function (vector) {
 Plantilla.imprimeDeportistasAlf = function (vector) 
 {
     let msj = "";
-    msj += Plantilla.cabeceraTable();
+    msj += Plantilla.cabeceraTableNombre();
     let ordenados=vector.data.sort((a, b) => a.data.nombre<b.data.nombre?-1:1); // ordena los elementos por el campo "nombre"
-    ordenados.forEach(e => msj += Plantilla.cuerpoTr(e));
-    msj += Plantilla.pieTable();
+    ordenados.forEach(e => msj += Plantilla.cuerpoTrNombre(e));
+    msj += Plantilla.pieTableNombre();
   
     // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Listado de deportistas ordenados alfabéticamente", msj);
+}
+
+/**
+ * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD
+ * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
+ */
+Plantilla.imprimeCompleto = function (vector) 
+{
+
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.data.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de deportistas completo", msj )
 }
 
 /**
@@ -182,11 +269,19 @@ Plantilla.listar=function()
 }
 
 /**
- * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas.
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas ordenados alfabéticamente.
  */
 Plantilla.listarAlf=function()
 {
     this.descargarRuta("/plantilla/getTodas",this.imprimeDeportistasAlf);
+}
+
+/**
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir tofos los datos.
+ */
+Plantilla.listarCompleto=function()
+{
+    this.descargarRuta("/plantilla/getTodas",this.imprimeCompleto);
 }
 
 
