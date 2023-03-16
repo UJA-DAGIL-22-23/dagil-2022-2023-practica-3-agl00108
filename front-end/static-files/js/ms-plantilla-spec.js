@@ -30,8 +30,6 @@ function esperar(ms) {
     }
 }
 
-
-
 // SPECS a probar
 
 describe("Plantilla.mostrarHome: ", function () {
@@ -191,42 +189,7 @@ describe("Plantilla.imprimeDeportistas: ", function ()
         })
     })
 
-    describe("Plantilla.imprimeCompleto: ", function () 
-    {
-        it("Observa si se muestran todos los campos",
-        function () {
-            let vector = {}
-            vector.data = [
-                {
-                    ref: {
-                        "@ref": {
-                            id: "Id de Luis"
-                        }
-                    },
-                    data: {
-                        nombre: "Luis"
-                    }
-                },
-                {
-                    ref: {
-                        "@ref": {
-                            id: "Id de Ana"
-                        }
-                    },
-                    data: {
-                        nombre: "Ana"
-                    }
-                }
-            ]
-            Plantilla.imprimeDeportistasAlf(vector)
-            // Compruebo que en el primer TD De la tabla se ha escrito Ana
-            //expect(elementoContenido.getElementsByTagName("td")[0].innerText.search('Pepito') >= 0).toBeTrue()
-            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Ana')).toBeTrue()
-
-        })
-    })
-
-
+    
 /*
 IMPORTANTE
 ==========

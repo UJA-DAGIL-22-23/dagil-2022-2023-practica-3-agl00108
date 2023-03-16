@@ -56,73 +56,6 @@ Plantilla.pieTableNombre = function ()
 }
 
 /**
- * Crea la cabecera para mostrar la info como tabla de los nombres de los deportistas
- * @returns Cabecera de la tabla 
- */
-Plantilla.cabeceraTable = function () 
-{
-    return `<table width="100%" class="listado-deportistas">
-    <thead>
-        <th width="20%">Nombre</th>
-        <th width="20%">Apellidos</th>
-        <th width="15%">País</th>
-        <th width="15%">Categoría de Halterofilia</th>
-        <th width="15%">Sexo</th>
-        <th width="15%">Año participación olimpiadas</th>
-        <th width="15%">Número de medallas ganadas</th>
-        <th width="15%">Logros</th>
-    </thead>
-    <tbody>
-    `;
-}
-
-/**
- * Muestra la información de cada proyecto en un elemento TR con sus correspondientes TD
- * @param {proyecto} p Datos del proyecto a mostrar con los nombres de los deportistas
- * @returns Cadena conteniendo todo el elemento TR que muestra el proyecto.
- */
-Plantilla.cuerpoTr = function (p) 
-{
-    const d = p.data
-        const fecha = new Date(d.fechaNacimiento.anio, d.fechaNacimiento.mes - 1, d.fechaNacimiento.dia);
-        const fechaFormateada = fecha.toLocaleDateString();
-    let aniosParticipacion = '';
-    for (let anio of d.aniosParticipacionOlimpiadas) 
-    {
-        aniosParticipacion += `<td>${anio}</td>`;
-    }
-
-    let logrosO = '';
-    for (let logro of d.logros) 
-    {
-        logrosO += `<td>${logro}</td>`;
-    }
-
-    return `<tr title="${p.ref['@ref'].id}">
-        <td>${d.nombre}</td>
-        <td>${d.apellidos}</td>
-        <td>${d.pais}</td>
-        <td>${d.categoria}</td>
-        <td>${d.sexo}</td>
-        <td>${fechaFormateada}</td>
-        ${aniosParticipacion}
-        <td>${d.numMedallasGanadas}</td>
-        ${logrosO}
-    </tr>
-    `;
-
-}
-
-/**
- * Muestra el pie de tabla de los nombres de los deportistas
- * @returns Cadena conteniendo el pie de tabla
- */
-Plantilla.pieTable = function () 
-{
-    return "</tbody></table>";
-}
-
-/**
  * Función que descarga la info MS Plantilla al llamar a una de sus rutas
  * @param {string} ruta Ruta a descargar
  * @param {función} callBackFn Función a la que se llamará una vez recibidos los datos.
@@ -244,21 +177,6 @@ Plantilla.imprimeDeportistasAlf = function (vector)
     Frontend.Article.actualizar("Listado de deportistas ordenados alfabéticamente", msj);
 }
 
-/**
- * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD
- * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
- */
-Plantilla.imprimeCompleto = function (vector) 
-{
-
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
-    vector.data.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
-
-    // Borro toda la info de Article y la sustituyo por la que me interesa
-    Frontend.Article.actualizar( "Listado de deportistas completo", msj )
-}
 
 /**
  * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas.
@@ -276,13 +194,7 @@ Plantilla.listarAlf=function()
     this.descargarRuta("/plantilla/getTodas",this.imprimeDeportistasAlf);
 }
 
-/**
- * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir tofos los datos.
- */
-Plantilla.listarCompleto=function()
-{
-    this.descargarRuta("/plantilla/getTodas",this.imprimeCompleto);
-}
+
 
 
 
