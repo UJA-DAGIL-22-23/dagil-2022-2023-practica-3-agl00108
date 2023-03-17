@@ -293,3 +293,9 @@ https://trello.com/b/NUf276Yx/practica3
    ##### -Muestra los nombres de los deportistas ordenados alfabéticamente
    
    <img width="728" alt="image" src="https://user-images.githubusercontent.com/124689598/225988327-c2c2b9ea-dffd-40da-a3a7-b467f5c16b47.png">
+   
+   ## 💻 INCREMENTO 2
+   #### Finalizado el 
+   ##### Captura inicial Trello
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/225989246-c43c6218-5bee-40c7-9514-1f386d953474.png">
+   
