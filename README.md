@@ -273,7 +273,7 @@ https://trello.com/b/NUf276Yx/practica3
     }
     
    ## 💻 INCREMENTO 1
-   #### Finalizado el 14/03/2023
+   #### Finalizado el 17/03/2023
    ##### Captura inicial Trello
    <img width="700" alt="INICIO" src="https://user-images.githubusercontent.com/124689598/225019912-a3239917-322a-45b9-a8c5-b8121c659895.png">
    
@@ -293,11 +293,4 @@ https://trello.com/b/NUf276Yx/practica3
    ##### -Muestra los nombres de los deportistas ordenados alfabéticamente
    
    <img width="539" alt="image" src="https://user-images.githubusercontent.com/124689598/225066691-8cdf06b9-53d3-40fe-9a87-2089456b2766.png">
-
-   ## 💻 INCREMENTO 2
-   #### Finalizado el 
-   ##### Captura inicial Trello
-   
-<img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/225377673-986562b8-2a07-4b5f-a39d-e998c6787a2a.png">
-
 
