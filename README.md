@@ -284,13 +284,12 @@ https://trello.com/b/NUf276Yx/practica3
    
    ##### -Inclusión de los datos de la autora
    
-   <img width="572" alt="image" src="https://user-images.githubusercontent.com/124689598/225066446-5b49f3d4-787c-477b-9717-a0b9634405a2.png">
+   <img width="541" alt="image" src="https://user-images.githubusercontent.com/124689598/225988138-8951c071-45af-4601-bb8a-2a66911bf43d.png">
     
    ##### -Muestra los nombres de los deportistas
    
-   <img width="539" alt="image" src="https://user-images.githubusercontent.com/124689598/225066592-cefd2fa5-2eeb-4b5d-a9bf-7b7a59569222.png">
+   <img width="563" alt="image" src="https://user-images.githubusercontent.com/124689598/225988282-08ca5933-c91a-4a10-ae1b-0f467827282f.png">
 
    ##### -Muestra los nombres de los deportistas ordenados alfabéticamente
    
-   <img width="539" alt="image" src="https://user-images.githubusercontent.com/124689598/225066691-8cdf06b9-53d3-40fe-9a87-2089456b2766.png">
-
+   <img width="728" alt="image" src="https://user-images.githubusercontent.com/124689598/225988327-c2c2b9ea-dffd-40da-a3a7-b467f5c16b47.png">
