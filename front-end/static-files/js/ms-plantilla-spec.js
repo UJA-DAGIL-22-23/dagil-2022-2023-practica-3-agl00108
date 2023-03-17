@@ -1,7 +1,7 @@
 /**
  * @file ms-plantilla-spec.js
  * @description Fichero TDD para probar todo lo relacionado con MS Plantilla en el front-end
- * @author Víctor M. Rivas <vrivas@ujaen.es>
+ * @author Alba G. Liébana <agl00108@readonly.ujaen.es>
  * @date 03-feb-2023
  */
 
@@ -86,7 +86,8 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
         })
 
     it("muestra datos nulos cuando le pasamos un objeto que no tiene campo mensaje o autor o email o fecha ",
-        function () {
+        function () 
+        {
             // Objeto vacío
             Plantilla.mostrarAcercaDe({})
             expect(elementoTitulo.innerHTML).toBe(TITULO_ACERCA_DE)
@@ -120,10 +121,67 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
             expect(elementoContenido.innerHTML.search(datosDescargadosPrueba.fecha) >= 0).toBeTrue()
         })
 })
+
+describe("Cabecera tabla ", function () 
+{
+    it("debería devolver las etiquetas HTML para la cabecera de la tabla",
+        function () {
+            expect(Plantilla.cabeceraTableNombre()).toBe(`<table class="listado-nombres"><thead><th>Nombre del deportista</th></thead><tbody>`);
+        });
+});
+
+describe("cuerpo con los nombres ", function () 
+{
+    // Preparo los datos
+    let vector = {}
+            vector.data = [
+                {
+                    ref: {
+                        "@ref": {
+                            id: "Id de Luis"
+                        }
+                    },
+                    data: {
+                        nombre: "Luis"
+                    }
+                },
+                {
+                    ref: {
+                        "@ref": {
+                            id: "Id de Ana"
+                        }
+                    },
+                    data: {
+                        nombre: "Ana"
+                    }
+                }
+            ]
+
+    // Realizo los expect
+    it("debería devolver una fila de tabla con los nombres de los deportistas",
+        function () {
+            let msj1 = Plantilla.cuerpoTrNombre(vector.data[0])
+                expect(msj1.includes(vector.data[0].ref["@ref"].id)).toBeTrue();
+                expect(msj1.includes(vector.data[0].data.nombre)).toBeTrue();
+            let msj2 = Plantilla.cuerpoTrNombre(vector.data[1])
+                expect(msj2.includes(vector.data[1].ref["@ref"].id)).toBeTrue();
+                expect(msj2.includes(vector.data[1].data.nombre)).toBeTrue();
+        });
+    });
+
+describe("Pie tabla ", function () 
+{
+    it("debería devolver las etiquetas HTML para el pie de tabla",
+        function () {
+            expect(Plantilla.pieTableNombre()).toBe("</tbody></table>");
+        });
+});
+
 describe("Plantilla.imprimeDeportistas: ", function () 
     {
         it("Observa si los nombres se muestran",
         function () {
+            //Primero preparamos unos datos estáticos
             let vector = {}
             vector.data = [
                 {

@@ -1,7 +1,7 @@
 /**
  * @file Plantilla.js
  * @description Funciones para el procesamiento de la info enviada por el MS Plantilla
- * @author Víctor M. Rivas <vrivas@ujaen.es>
+ * @author Alba G. Liébana <agl00108@red.ujaen.es>
  * @date 03-feb-2023
  */
 
@@ -11,33 +11,31 @@
 let Plantilla = {};
 
 // Plantilla de datosDescargados vacíos
-Plantilla.datosDescargadosNulos = {
+Plantilla.datosDescargadosNulos = 
+{
     mensaje: "Datos Descargados No válidos",
     autor: "",
     email: "",
     fecha: ""
 }
 
+//PARA CREAR LA TABLA DE NOMBRES
 /**
  * Crea la cabecera para mostrar la info como tabla de los nombres de los deportistas
  * @returns Cabecera de la tabla 
  */
 Plantilla.cabeceraTableNombre = function () 
 {
-    return `<table class="listado-nombres">
-        <thead>
-        <th>Nombre del deportista</th>
-        </thead>
-        <tbody>
-    `;
+    return `<table class="listado-nombres"><thead><th>Nombre del deportista</th></thead><tbody>`;
 }
 
 /**
- * Muestra la información de cada proyecto en un elemento TR con sus correspondientes TD
- * @param {proyecto} p Datos del proyecto a mostrar con los nombres de los deportistas
- * @returns Cadena conteniendo todo el elemento TR que muestra el proyecto.
+ * Muestra el nombre de cada deportista en un elemento TR con sus correspondientes TD
+ * @param {deportista} p Datos del deportista a mostrar con los nombres de los deportistas
+ * @returns Cadena conteniendo todo el elemento TR que muestra los nombres.
  */
-Plantilla.cuerpoTrNombre = function (p) {
+Plantilla.cuerpoTrNombre = function (p) 
+{
     const d = p.data
 
     return `<tr title="${p.ref['@ref'].id}">
@@ -55,6 +53,7 @@ Plantilla.pieTableNombre = function ()
     return "</tbody></table>";
 }
 
+//PARA DESCARGAR LA RUTA
 /**
  * Función que descarga la info MS Plantilla al llamar a una de sus rutas
  * @param {string} ruta Ruta a descargar
@@ -83,11 +82,12 @@ Plantilla.descargarRuta = async function (ruta, callBackFn)
     }
 }
 
-
+//PARA MOSTRAR LOS DATOS ENVIADOS DESDE HOME
 /**
  * Función principal para mostrar los datos enviados por la ruta "home" de MS Plantilla
  */
-Plantilla.mostrarHome = function (datosDescargados) {
+Plantilla.mostrarHome = function (datosDescargados) 
+{
     // Si no se ha proporcionado valor para datosDescargados
     datosDescargados = datosDescargados || this.datosDescargadosNulos
 
@@ -100,10 +100,12 @@ Plantilla.mostrarHome = function (datosDescargados) {
     Frontend.Article.actualizar("Plantilla Home", datosDescargados.mensaje)
 }
 
+//PARA MOSTRAR LOS DATOS DE ACERCA DE
 /**
  * Función principal para mostrar los datos enviados por la ruta "acerca de" de MS Plantilla
  */
-Plantilla.mostrarAcercaDe = function (datosDescargados) {
+Plantilla.mostrarAcercaDe = function (datosDescargados) 
+{
     // Si no se ha proporcionado valor para datosDescargados
     datosDescargados = datosDescargados || this.datosDescargadosNulos
 
@@ -129,22 +131,7 @@ Plantilla.mostrarAcercaDe = function (datosDescargados) {
     Frontend.Article.actualizar("Plantilla Acerca de", mensajeAMostrar)
 }
 
-
-/**
- * Función principal para responder al evento de elegir la opción "Home"
- */
-Plantilla.procesarHome = function () {
-    this.descargarRuta("/plantilla/", this.mostrarHome);
-}
-
-/**
- * Función principal para responder al evento de elegir la opción "Acerca de"
- */
-Plantilla.procesarAcercaDe = function () {
-    this.descargarRuta("/plantilla/acercade", this.mostrarAcercaDe);
-}
-
-
+//FUNCIONES CREADAS PARA FUNCIONALIDADES
 /**
  * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD.
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
@@ -158,7 +145,7 @@ Plantilla.imprimeDeportistas = function (vector)
     msj += Plantilla.pieTableNombre();
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
-    Frontend.Article.actualizar( "Listado de deportistas", msj )
+    Frontend.Article.actualizar( "Listado de los nombres de los deportistas", msj )
 }
 
 /**
@@ -174,9 +161,26 @@ Plantilla.imprimeDeportistasAlf = function (vector)
     msj += Plantilla.pieTableNombre();
   
     // Borro toda la info de Article y la sustituyo por la que me interesa
-    Frontend.Article.actualizar("Listado de deportistas ordenados alfabéticamente", msj);
+    Frontend.Article.actualizar("Listado de los nombres de los deportistas ordenados alfabéticamente", msj);
 }
 
+
+//FUNCIONES PRINCIPALES 
+/**
+ * Función principal para responder al evento de elegir la opción "Home"
+ */
+Plantilla.procesarHome = function () 
+{
+    this.descargarRuta("/plantilla/", this.mostrarHome);
+}
+
+/**
+ * Función principal para responder al evento de elegir la opción "Acerca de"
+ */
+Plantilla.procesarAcercaDe = function () 
+{
+    this.descargarRuta("/plantilla/acercade", this.mostrarAcercaDe);
+}
 
 /**
  * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas.
