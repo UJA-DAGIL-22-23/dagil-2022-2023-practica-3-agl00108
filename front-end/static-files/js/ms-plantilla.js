@@ -53,6 +53,49 @@ Plantilla.pieTableNombre = function ()
     return "</tbody></table>";
 }
 
+/**
+ * Crea la cabecera para mostrar la info como tabla de los nombres de los deportistas
+ * @returns Cabecera de la tabla 
+ */
+Plantilla.cabeceraTable = function () 
+{
+    return `<table class="listado-deportistas"><thead><th>Nombre</th><th>Apellidos</th><th>País</th><th>Categoría</th><th>Sexo</th><th>Fecha nacimiento</th><th>Medallas ganadas</th><th>Años participación</th><th>Logros</th></thead><tbody>`;
+}
+
+/**
+ * Muestra la información de cada deportista en un elemento TR con sus correspondientes TD
+ * @param {deportista} p Datos del deportista a mostrar con sus datos
+ * @returns Cadena conteniendo todo el elemento TR que muestra el deportista.
+ */
+Plantilla.cuerpoTr = function (p) 
+{
+    const d = p.data
+        const fecha = new Date(d.fechaNacimiento.anio, d.fechaNacimiento.mes - 1, d.fechaNacimiento.dia);
+        const fechaFormateada = fecha.toLocaleDateString();
+    return `<tr title="${p.ref['@ref'].id}">
+        <td>${d.nombre}</td>
+        <td>${d.apellidos}</td>
+        <td>${d.pais}</td>
+        <td>${d.categoria}</td>
+        <td>${d.sexo}</td>
+        <td>${fechaFormateada}</td>
+        <td>${d.numMedallasGanadas}</td>
+        <td>${d.aniosParticipacionOlimpiadas}<td>
+        <td>${d.logros}<td>
+    </tr>`;
+
+}
+
+/**
+ * Muestra el pie de tabla de los nombres de los deportistas
+ * @returns Cadena conteniendo el pie de tabla
+ */
+Plantilla.pieTable = function () 
+{
+    return "</tbody></table>";
+}
+
+
 //PARA DESCARGAR LA RUTA
 /**
  * Función que descarga la info MS Plantilla al llamar a una de sus rutas
@@ -164,6 +207,22 @@ Plantilla.imprimeDeportistasAlf = function (vector)
     Frontend.Article.actualizar("Listado de los nombres de los deportistas ordenados alfabéticamente", msj);
 }
 
+/**
+ * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD
+ * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
+ */
+Plantilla.imprimeCompleto = function (vector) 
+{
+
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.data.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de deportistas completo", msj )
+}
+
 
 //FUNCIONES PRINCIPALES 
 /**
@@ -196,6 +255,14 @@ Plantilla.listar=function()
 Plantilla.listarAlf=function()
 {
     this.descargarRuta("/plantilla/getTodas",this.imprimeDeportistasAlf);
+}
+
+/**
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir tofos los datos.
+ */
+Plantilla.listarCompleto=function()
+{
+    this.descargarRuta("/plantilla/getTodas",this.imprimeCompleto);
 }
 
 

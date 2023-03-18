@@ -31,10 +31,48 @@ table.listado-nombres tbody td
     text-align: center;
 }
 
-table.listado-nombres tbody tr {
+table.listado-nombres tbody tr 
+{
+    margin: 3px;
+    background-color: rgba(0, 0, 100, 0.1)
+}
+
+table.listado-deportistas 
+{
+    width: 100%;
+    border: 1px solid rgba(81, 80, 80, 0.8);
+    empty-cells: hide;
+    border-collapse: separate;
+    width: 100%;
+}
+
+table.listado-deportistas thead th,
+table.listado-deportistas tbody th 
+{
+    margin: 3px;
+    height: 2.5em;
+    background-color: rgb(203, 87, 179);
+    text-transform: uppercase;
+
+}
+
+table.listado-deportistas tbody th 
+{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+table.listado-deportistas tbody td 
+{
+    padding: 0.5em;
+    text-align: center;
+}
+
+table.listado-deportistas tbody tr 
+{
     margin: 3px;
     height: 2em;
     background-color: rgba(0, 0, 100, 0.1)
 }
+ 
  
 

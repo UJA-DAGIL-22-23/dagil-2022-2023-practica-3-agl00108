@@ -160,12 +160,13 @@ describe("cuerpo con los nombres ", function ()
     // Realizo los expect
     it("debería devolver una fila de tabla con los nombres de los deportistas",
         function () {
-            let msj1 = Plantilla.cuerpoTrNombre(vector.data[0])
-                expect(msj1.includes(vector.data[0].ref["@ref"].id)).toBeTrue();
-                expect(msj1.includes(vector.data[0].data.nombre)).toBeTrue();
-            let msj2 = Plantilla.cuerpoTrNombre(vector.data[1])
-                expect(msj2.includes(vector.data[1].ref["@ref"].id)).toBeTrue();
-                expect(msj2.includes(vector.data[1].data.nombre)).toBeTrue();
+            for (let i = 0; i < vector.data.length; ++i) 
+            {
+                let msj = Plantilla.cuerpoTrNombre(vector.data[i])
+                let persona = vector.data[i]
+                expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
+                expect(msj.includes(persona.data.nombre)).toBeTrue();
+            }
         });
     });
 
@@ -246,6 +247,141 @@ describe("Plantilla.imprimeDeportistas: ", function ()
 
         })
     })
+
+    describe("Cabecera tabla de todos los datos", function () 
+    {
+        it("debería devolver las etiquetas HTML para la cabecera de la tabla",
+            function () {
+                expect(Plantilla.cabeceraTable()).toBe(`<table class="listado-deportistas"><thead><th>Nombre</th><th>Apellidos</th><th>País</th><th>Categoría</th><th>Sexo</th><th>Fecha nacimiento</th><th>Medallas ganadas</th><th>Años participación</th><th>Logros</th></thead><tbody>`);
+            });
+    });
+
+    describe("Cuerpo con todos los datos de los deportistas", function () 
+    {
+        // Preparo los datos
+        let vector = {}
+            vector.data = [
+                {
+                    ref: {
+                        "@ref": {
+                            id: "ref persona 1"
+                        }
+                    },
+                    data: {
+                        nombre: "Lidia",
+                        apellidos: "Valentin Perez",
+                        fechaNacimiento: {
+                            dia: 13,
+                            mes: 5,
+                            anio: 1985
+                        },
+                        aniosParticipacionOlimpiadas: [2008, 2012, 2016, 2020],
+                        numMedallasGanadas: 3,
+                        logros: [
+                            "Plata en Beijing 2008",
+                            "Oro en Londres 2012",
+                            "Bronce en Río 2016"
+                        ],
+                        pais: "Spain",
+                        categoria: "Heavyweight",
+                        sexo: "F"
+                    }
+                },
+                {
+                    ref: {
+                        "@ref": {
+                            id: "ref persona 2"
+                        }
+                    },
+                    data: {
+                        nombre: "Shi",
+                        apellidos: "Zhiyong",
+                        fechaNacimiento: {
+                            dia: 3,
+                            mes: 4,
+                            anio: 1993
+                        },
+                        aniosParticipacionOlimpiadas: [2016, 2020],
+                        numMedallasGanadas: 2,
+                        logros: ["Oro en Río 2016", "Oro en Tokio 2020"],
+                        pais: "China",
+                        categoria: "Lightweight",
+                        sexo: "M"
+                    }
+                }
+            ]   
+        // Realizo los expect
+        it("debería devolver una fila de tabla con los datos de los deportistas",
+        function () 
+        {
+            for (let i = 0; i < vector.data.length; ++i) 
+            {
+                let msj = Plantilla.cuerpoTr(vector.data[i])
+                let persona = vector.data[i]
+                const fecha = new Date(persona.data.fechaNacimiento.anio, persona.data.fechaNacimiento.mes - 1, persona.data.fechaNacimiento.dia);
+                const fechaFormateada = fecha.toLocaleDateString();
+                expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
+                expect(msj.includes(persona.data.nombre)).toBeTrue();
+                expect(msj.includes(persona.data.apellidos)).toBeTrue();
+                expect(msj.includes(fechaFormateada)).toBeTrue();
+                expect(msj.includes(persona.data.aniosParticipacionOlimpiadas)).toBeTrue();
+                expect(msj.includes(persona.data.numMedallasGanadas)).toBeTrue();
+                expect(msj.includes(persona.data.logros)).toBeTrue();
+                expect(msj.includes(persona.data.pais)).toBeTrue();
+                expect(msj.includes(persona.data.categoria)).toBeTrue();
+                expect(msj.includes(persona.data.sexo)).toBeTrue();
+            }
+        });
+    });
+
+    describe("Pie tabla ", function () 
+    {
+        it("debería devolver las etiquetas HTML para el pie de tabla",
+            function () {
+                expect(Plantilla.pieTableNombre()).toBe("</tbody></table>");
+            });
+    });
+
+    describe("Plantilla.imprimeCompleto: ", function () 
+    {
+        it("Observa si los datos se muestran",
+        function () {
+            //Primero preparamos unos datos estáticos
+            let vector = {}
+            vector.data = [
+                {
+                    ref: {
+                        "@ref": {
+                            id: "ref persona 1"
+                        }
+                    },
+                    data: {
+                        nombre: "Lidia",
+                        apellidos: "Valentin Perez",
+                        fechaNacimiento: {
+                            dia: 13,
+                            mes: 5,
+                            anio: 1985
+                        },
+                        aniosParticipacionOlimpiadas: [2008, 2012, 2016, 2020],
+                        numMedallasGanadas: 3,
+                        logros: [
+                            "Plata en Beijing 2008",
+                            "Oro en Londres 2012",
+                            "Bronce en Río 2016"
+                        ],
+                        pais: "Spain",
+                        categoria: "Heavyweight",
+                        sexo: "F"
+                    }
+                }
+            ]   
+            Plantilla.imprimeCompleto(vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito bien a Lidia
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
+        })
+    })
+
 
     
 /*
