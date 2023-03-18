@@ -382,6 +382,46 @@ describe("Plantilla.imprimeDeportistas: ", function ()
         })
     })
 
+    describe("Plantilla.imprimeDeportista: ", function () 
+    {
+        it("Observa si los datos se muestran",
+        function () {
+            //Primero preparamos unos datos estáticos
+            let vector = {}
+            vector.data = [
+                {
+                    ref: {
+                        "@ref": {
+                            id: "ref persona 1"
+                        }
+                    },
+                    data: {
+                        nombre: "Lidia",
+                        apellidos: "Valentin Perez",
+                        fechaNacimiento: {
+                            dia: 13,
+                            mes: 5,
+                            anio: 1985
+                        },
+                        aniosParticipacionOlimpiadas: [2008, 2012, 2016, 2020],
+                        numMedallasGanadas: 3,
+                        logros: [
+                            "Plata en Beijing 2008",
+                            "Oro en Londres 2012",
+                            "Bronce en Río 2016"
+                        ],
+                        pais: "Spain",
+                        categoria: "Heavyweight",
+                        sexo: "F"
+                    }
+                }
+            ]   
+            Plantilla.imprimeDeportista(vector.data[0])
+            // Compruebo que se ha escrito bien a Lidia
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
+        })
+    })
+
 
     
 /*

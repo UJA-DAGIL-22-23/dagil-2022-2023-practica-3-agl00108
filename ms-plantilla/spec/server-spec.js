@@ -55,7 +55,6 @@ describe('Servidor PLANTILLA:', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
-          //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
           assert(res.body.data[0].data.hasOwnProperty('nombre'));
           assert(res.body.data[0].data.nombre === "Lidia");
 
@@ -71,8 +70,20 @@ describe('Servidor PLANTILLA:', () => {
       .expect(200)
       .expect('Content-Type', /json/)
       .expect(function (res) {
-        console.log( res.body ); // Para comprobar qué contiene exactamente res.body
         assert(res.body.data.length === 10);
+      })
+      .end((error) => { error ? done.fail(error) : done(); }
+      );
+  });
+
+  it('Devuelve Heavyweight al recuperar los datos de la Persona con id 358470619171389645 mediante getPorId', (done) => {
+    supertest(app)
+      .get('/getPorId/358470619171389645')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        assert(res.body.data.hasOwnProperty('categoria'));
+        assert(res.body.data.categoria === "Heavyweight");
       })
       .end((error) => { error ? done.fail(error) : done(); }
       );

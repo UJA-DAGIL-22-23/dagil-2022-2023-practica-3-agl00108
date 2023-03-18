@@ -42,32 +42,32 @@ function CORS(res) {
  */
 const CB_MODEL_SELECTS = {
     /**
-     * Prueba de conexión a la BBDD: devuelve todas las personas que haya en la BBDD.
+     * Prueba de conexión a la BBDD: devuelve todas los deportistas que haya en la BBDD.
      * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
      * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
      */
     test_db: async (req, res) => {
         try {
-            let personas = await client.query(
+            let deportistas = await client.query(
                 q.Map(
                     q.Paginate(q.Documents(q.Collection(COLLECTION))),
                     q.Lambda("X", q.Get(q.Var("X")))
                 )
             )
-            res.status(200).json(personas)
+            res.status(200).json(deportistas)
         } catch (error) {
             res.status(500).json({ error: error.description })
         }
     },
 
     /**
-     * Método para obtener todas las personas de la BBDD.
+     * Método para obtener todas los deportistas de la BBDD.
      * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
      * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
      */
     getTodas: async (req, res) => {
         try {
-            let personas = await client.query(
+            let deportistas = await client.query(
                 q.Map(
                     q.Paginate(q.Documents(q.Collection(COLLECTION))),
                     q.Lambda("X", q.Get(q.Var("X")))
@@ -75,18 +75,32 @@ const CB_MODEL_SELECTS = {
             )
             CORS(res)
                 .status(200)
-                .json(personas)
+                .json(deportistas)
         } catch (error) {
             CORS(res).status(500).json({ error: error.description })
         }
     },
 
+    /**
+     * Método para obtener una persona de la BBDD por su id.
+     * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
+     * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
+     */
+        getPorId: async (req, res) => {
+            try {
+                let deportista = await client.query(
+                    q.Get(q.Ref(q.Collection(COLLECTION), req.params.idDeportista))
+                )
+                CORS(res)
+                    .status(200)
+                    .json(deportista)
+            } catch (error) {
+                CORS(res).status(500).json({ error: error.description })
+            }
+        },
 }
 
-
-
 // CALLBACKS ADICIONALES
-
 /**
  * Callbacks adicionales. Fundamentalmente para comprobar que el ms funciona.
  */

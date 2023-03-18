@@ -125,6 +125,29 @@ Plantilla.descargarRuta = async function (ruta, callBackFn)
     }
 }
 
+/**
+ * Función que recupera un deportista por su id
+ * @param {String} idDeportista id del deportista a mostrar
+ * @param {*} callBackFn función llamada cuando se reciban los datos
+ */
+Plantilla.recuperaDeportista=async function(idDeportista, callBackFn)
+{
+    try
+    {
+        const url=Frontend.API_GATEWAY+"/plantilla/getPorId/"+idDeportista
+        const response = await fetch(url);
+        if(response)
+        {
+            const deportista=await response.json()
+            callBackFn(deportista)
+        }
+    }catch(error)
+    {
+        alert("Error: No se ha podido acceder al API Gateway")
+        console.error(error)
+    }
+}
+
 //PARA MOSTRAR LOS DATOS ENVIADOS DESDE HOME
 /**
  * Función principal para mostrar los datos enviados por la ruta "home" de MS Plantilla
@@ -213,7 +236,6 @@ Plantilla.imprimeDeportistasAlf = function (vector)
  */
 Plantilla.imprimeCompleto = function (vector) 
 {
-
     let msj = "";
     msj += Plantilla.cabeceraTable();
     vector.data.forEach(e => msj += Plantilla.cuerpoTr(e))
@@ -221,6 +243,21 @@ Plantilla.imprimeCompleto = function (vector)
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar( "Listado de deportistas completo", msj )
+}
+
+/**
+ * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD
+ * @param {Deportista} deportistaUnico con los datos de los deportistas a mostrar
+ */
+Plantilla.imprimeDeportista = function (deportistaUnico) 
+{
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    msj += Plantilla.cuerpoTr(deportistaUnico)
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Datos del deportista solicitado", msj )
 }
 
 
@@ -258,12 +295,22 @@ Plantilla.listarAlf=function()
 }
 
 /**
- * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir tofos los datos.
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos.
  */
 Plantilla.listarCompleto=function()
 {
     this.descargarRuta("/plantilla/getTodas",this.imprimeCompleto);
 }
+
+/**
+ * Función principal para mostrar los datos de un deportista desde el MS e imprimirlo
+ * @param {String} idDeportista id del deportista a mostrar
+ */
+Plantilla.mostrarDeportista = function (idDeportista) 
+{
+    this.recuperaDeportista(idDeportista,this.imprimeDeportista);
+}
+
 
 
 
