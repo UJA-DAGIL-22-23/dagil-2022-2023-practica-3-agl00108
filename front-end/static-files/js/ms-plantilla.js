@@ -18,6 +18,22 @@ Plantilla.datosDescargadosNulos =
     email: "",
     fecha: ""
 }
+const enlaceMostrarFormulario = document.querySelector('#enlace-formulario');
+const formulario = document.querySelector('#formulario');
+
+enlaceMostrarFormulario.addEventListener('click', function(event) 
+{
+  event.preventDefault();
+  formulario.style.display = 'block';
+});
+
+const botonListar = document.querySelector('#boton-listar');
+
+botonListar.addEventListener('click', function(event) {
+  event.preventDefault();
+  const campo = document.querySelector('#campo').value;
+  Plantilla.listarCompletoT(campo);
+});
 
 //PARA CREAR LA TABLA DE NOMBRES
 /**
@@ -260,6 +276,22 @@ Plantilla.imprimeDeportista = function (deportistaUnico)
     Frontend.Article.actualizar( "Datos del deportista solicitado", msj )
 }
 
+/**
+ * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD
+ * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
+ */
+Plantilla.imprimePorCampo = function (vector, campoOrden) 
+{
+    const datosOrdenados = vector.data.sort((a, b) => (a[campoOrden] > b[campoOrden]) ? 1 : -1);
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    datosOrdenados.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de deportistas completo ordenado por " + campoOrden, msj )
+}
+
 
 //FUNCIONES PRINCIPALES 
 /**
@@ -309,6 +341,27 @@ Plantilla.listarCompleto=function()
 Plantilla.mostrarDeportista = function (idDeportista) 
 {
     this.recuperaDeportista(idDeportista,this.imprimeDeportista);
+}
+
+/**
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos.
+ */
+Plantilla.listarCompletoT=function(campoOrdenar)
+{
+    this.descargarRuta("/plantilla/getTodas",this.imprimePorCampo);
+}
+
+Plantilla.ordenarPorCampo = fuction(vector.data, campoOrden)
+{
+    const form = document.querySelector('form');
+    const resultados = document.querySelector('#resultados');
+
+    form.addEventListener('submit', function(event) 
+    {
+    event.preventDefault();
+    const campo = document.querySelector('#campo').value;
+    Plantilla.imprimeCompleto(deportistas, campo);
+    });   
 }
 
 
