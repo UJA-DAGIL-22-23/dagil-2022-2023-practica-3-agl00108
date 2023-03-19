@@ -481,18 +481,37 @@ describe("Plantilla.imprimeDeportistas: ", function ()
                 }
             ]   
             let campo1="nombre"
+            Plantilla.imprimePorCampo(campo1,vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Lidia 
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
             let campo2="apellidos"
+            Plantilla.imprimePorCampo(campo2,vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Lidia 
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
             let campo3="pais"
+            Plantilla.imprimePorCampo(campo3,vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Shi 
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Shi')).toBeTrue()
             let campo4="categoria"
+            Plantilla.imprimePorCampo(campo4,vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Lidia 
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
             let campo5="sexo"
+            Plantilla.imprimePorCampo(campo5,vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Lidia 
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
             let campo6="fechaNacimiento"
+            Plantilla.imprimePorCampo(campo6,vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Lidia 
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
             let campo7="numMedallasGanadas"
+            Plantilla.imprimePorCampo(campo7,vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Lidia 
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
             let campo8="aniosParticipacionOlimpiadas"
-            Plantilla.imprimePorCampo(vector,campo1)
-            // Compruebo que en el primer TD De la tabla se ha escrito Ana
-            //expect(elementoContenido.getElementsByTagName("td")[0].innerText.search('Pepito') >= 0).toBeTrue()
-            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Ana')).toBeTrue()
-
+            Plantilla.imprimePorCampo(campo8,vector)
+            // Compruebo que en el primer TD De la tabla se ha escrito Lidia 
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
         })
     })
 
