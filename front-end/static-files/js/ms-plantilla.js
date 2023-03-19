@@ -18,8 +18,11 @@ Plantilla.datosDescargadosNulos =
     email: "",
     fecha: ""
 }
+
+//Para formulario
 const enlaceMostrarFormulario = document.querySelector('#enlace-formulario');
 const formulario = document.querySelector('#formulario');
+const botonListar = document.querySelector('#boton-listar');
 
 enlaceMostrarFormulario.addEventListener('click', function(event) 
 {
@@ -27,9 +30,8 @@ enlaceMostrarFormulario.addEventListener('click', function(event)
   formulario.style.display = 'block';
 });
 
-const botonListar = document.querySelector('#boton-listar');
-
-botonListar.addEventListener('click', function(event) {
+botonListar.addEventListener('click', function(event) 
+{
   event.preventDefault();
   const campo = document.querySelector('#campo').value;
   Plantilla.listarCompletoT(campo);
@@ -164,6 +166,29 @@ Plantilla.recuperaDeportista=async function(idDeportista, callBackFn)
     }
 }
 
+/**
+ * Función que recupera todos los deportistas y llama a campo
+ * @param {String} idDeportista id del deportista a mostrar
+ * @param {*} callBackFn función llamada cuando se reciban los datos
+ */
+Plantilla.recuperaDeportistas=async function(campoOrden, callBackFn)
+{
+    try
+    {
+        const url=Frontend.API_GATEWAY+"/plantilla/getTodas"
+        const response = await fetch(url);
+        if(response)
+        {
+            const deportistas=await response.json()
+            callBackFn(campoOrden,deportistas)
+        }
+    }catch(error)
+    {
+        alert("Error: No se ha podido acceder al API Gateway")
+        console.error(error)
+    }
+}
+
 //PARA MOSTRAR LOS DATOS ENVIADOS DESDE HOME
 /**
  * Función principal para mostrar los datos enviados por la ruta "home" de MS Plantilla
@@ -280,17 +305,29 @@ Plantilla.imprimeDeportista = function (deportistaUnico)
  * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
  */
-Plantilla.imprimePorCampo = function (vector, campoOrden) 
+Plantilla.imprimePorCampo = function (campoOrden,vector) 
 {
-    const datosOrdenados = vector.data.sort((a, b) => (a[campoOrden] > b[campoOrden]) ? 1 : -1);
     let msj = "";
     msj += Plantilla.cabeceraTable();
-    datosOrdenados.forEach(e => msj += Plantilla.cuerpoTr(e))
+    
+    let ordenados = vector.data.sort((a, b) => 
+    {
+        if (campoOrden === "fechaNacimiento") {
+          const fechaA = new Date(a.data.fechaNacimiento.anio, a.data.fechaNacimiento.mes - 1, a.data.fechaNacimiento.dia);
+          const fechaB = new Date(b.data.fechaNacimiento.anio, b.data.fechaNacimiento.mes - 1, b.data.fechaNacimiento.dia);
+          return fechaA < fechaB ? -1 : 1;
+        } else if(campoOrden === "numMedallasGanadas") {
+          return a.data[campoOrden] > b.data[campoOrden] ? -1 : 1;
+        } else {
+            return a.data[campoOrden] < b.data[campoOrden] ? -1 : 1;
+        }
+      });
+  
+    ordenados.forEach(e => msj += Plantilla.cuerpoTr(e));
     msj += Plantilla.pieTable();
-
-    // Borro toda la info de Article y la sustituyo por la que me interesa
-    Frontend.Article.actualizar( "Listado de deportistas completo ordenado por " + campoOrden, msj )
-}
+  
+    Frontend.Article.actualizar("Listado de deportistas completo ordenado ", msj);
+  }
 
 
 //FUNCIONES PRINCIPALES 
@@ -348,21 +385,11 @@ Plantilla.mostrarDeportista = function (idDeportista)
  */
 Plantilla.listarCompletoT=function(campoOrdenar)
 {
-    this.descargarRuta("/plantilla/getTodas",this.imprimePorCampo);
+    this.recuperaDeportistas(campoOrdenar,this.imprimePorCampo);
 }
 
-Plantilla.ordenarPorCampo = fuction(vector.data, campoOrden)
-{
-    const form = document.querySelector('form');
-    const resultados = document.querySelector('#resultados');
 
-    form.addEventListener('submit', function(event) 
-    {
-    event.preventDefault();
-    const campo = document.querySelector('#campo').value;
-    Plantilla.imprimeCompleto(deportistas, campo);
-    });   
-}
+
 
 
 

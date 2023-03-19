@@ -37,11 +37,20 @@
             title="Listar a un deportista en la base de datos">Info Deportista</a> 
         <a href="#" id="enlace-formulario" class="opcion-principal">Mostrar formulario</a>
             <div id="formulario" style="display: none;">
-                <form>
+                <form id="formulario">
                     <label for="campo">Campo por el cual ordenar:</label>
-                    <input type="text" id="campo" name="campo">
+                    <select id="campo" name="campo">
+                      <option value="nombre">Nombre</option>
+                      <option value="apellidos">Apellidos</option>
+                      <option value="pais">País</option>
+                      <option value="categoria">Categoría</option>
+                      <option value="sexo">Sexo</option>
+                      <option value="fechaNacimiento">Edad</option>
+                      <option value="numMedallasGanadas">Medallas Ganadas</option>
+                      <option value="aniosParticipacionOlimpiadas">Número de participaciones</option>
+                    </select>
                     <button type="submit" id="boton-listar">Listar</button>
-                </form>
+                  </form>
             </div>
         </nav>
 

@@ -30,6 +30,9 @@ function esperar(ms) {
     }
 }
 
+//VECTORES DE PRUEBA PARA DISTINTOS EXPECT
+
+
 // SPECS a probar
 
 describe("Plantilla.mostrarHome: ", function () {
@@ -419,6 +422,77 @@ describe("Plantilla.imprimeDeportistas: ", function ()
             Plantilla.imprimeDeportista(vector.data[0])
             // Compruebo que se ha escrito bien a Lidia
             expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Lidia')).toBeTrue()
+        })
+    })
+
+    describe("Plantilla.imprimePorCampo: ", function () 
+    {
+        it("Observa si los datos se ordenan en relación a distintos campos utilizados",
+        function () {
+            let vector = {}
+            vector.data = [
+                {
+                    ref: {
+                        "@ref": {
+                            id: "ref persona 1"
+                        }
+                    },
+                    data: {
+                        nombre: "Lidia",
+                        apellidos: "Valentin Perez",
+                        fechaNacimiento: {
+                            dia: 13,
+                            mes: 5,
+                            anio: 1985
+                        },
+                        aniosParticipacionOlimpiadas: [2008, 2012, 2016, 2020],
+                        numMedallasGanadas: 3,
+                        logros: [
+                            "Plata en Beijing 2008",
+                            "Oro en Londres 2012",
+                            "Bronce en Río 2016"
+                        ],
+                        pais: "Spain",
+                        categoria: "Heavyweight",
+                        sexo: "F"
+                    }
+                },
+                {
+                    ref: {
+                        "@ref": {
+                            id: "ref persona 2"
+                        }
+                    },
+                    data: {
+                        nombre: "Shi",
+                        apellidos: "Zhiyong",
+                        fechaNacimiento: {
+                            dia: 3,
+                            mes: 4,
+                            anio: 1993
+                        },
+                        aniosParticipacionOlimpiadas: [2016, 2020],
+                        numMedallasGanadas: 2,
+                        logros: ["Oro en Río 2016", "Oro en Tokio 2020"],
+                        pais: "China",
+                        categoria: "Lightweight",
+                        sexo: "M"
+                    }
+                }
+            ]   
+            let campo1="nombre"
+            let campo2="apellidos"
+            let campo3="pais"
+            let campo4="categoria"
+            let campo5="sexo"
+            let campo6="fechaNacimiento"
+            let campo7="numMedallasGanadas"
+            let campo8="aniosParticipacionOlimpiadas"
+            Plantilla.imprimePorCampo(vector,campo1)
+            // Compruebo que en el primer TD De la tabla se ha escrito Ana
+            //expect(elementoContenido.getElementsByTagName("td")[0].innerText.search('Pepito') >= 0).toBeTrue()
+            expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Ana')).toBeTrue()
+
         })
     })
 
