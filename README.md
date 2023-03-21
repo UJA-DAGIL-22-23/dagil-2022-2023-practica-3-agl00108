@@ -295,7 +295,21 @@ https://trello.com/b/NUf276Yx/practica3
    <img width="728" alt="image" src="https://user-images.githubusercontent.com/124689598/225988327-c2c2b9ea-dffd-40da-a3a7-b467f5c16b47.png">
    
    ## 💻 INCREMENTO 2
-   #### Finalizado el 
+   #### Finalizado el 21/03/2023
    ##### Captura inicial Trello
    <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/225989246-c43c6218-5bee-40c7-9514-1f386d953474.png">
    
+   ##### Captura final Trello
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/226606571-0664e23a-3105-4f75-b9f6-8321bc1c5c8d.png">
+
+   En el incremento se han implementado tres nuevas funcionalidades:
+   
+   ##### -Se muestra la información de todos los deportistas
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/226607293-0ebf59a2-1060-40b1-a50b-b226c570b3f8.png">
+
+   ##### -Se muestra la información de únicamente un deportista
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/226607521-55bcd9d5-4e08-471e-9727-d6f027ea969e.png">
+ 
+   ##### -Se muestra la información de todos los deportistas ordenados por un campo
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/226607603-0e6e79d4-141b-4d81-81b0-d06bb5925bc3.png">
+
