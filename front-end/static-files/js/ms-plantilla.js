@@ -19,7 +19,7 @@ Plantilla.datosDescargadosNulos =
     fecha: ""
 }
 
-//Para formulario
+//Para formulario del campo a ordenar de los deportistas
 const enlaceMostrarFormulario = document.querySelector('#enlace-formulario');
 const formulario = document.querySelector('#formulario');
 const botonListar = document.querySelector('#boton-listar');
@@ -71,6 +71,7 @@ Plantilla.pieTableNombre = function ()
     return "</tbody></table>";
 }
 
+//PARA TABLA DE LOS DEPORTISTAS CON TODOS LOS DATOS
 /**
  * Crea la cabecera para mostrar la info como tabla de los nombres de los deportistas
  * @returns Cabecera de la tabla 
@@ -98,10 +99,9 @@ Plantilla.cuerpoTr = function (p)
         <td>${d.sexo}</td>
         <td>${fechaFormateada}</td>
         <td>${d.numMedallasGanadas}</td>
-        <td>${d.aniosParticipacionOlimpiadas}<td>
-        <td>${d.logros}<td>
+        <td>${d.aniosParticipacionOlimpiadas}</td>
+        <td>${d.logros}</td>
     </tr>`;
-
 }
 
 /**
@@ -114,7 +114,7 @@ Plantilla.pieTable = function ()
 }
 
 
-//PARA DESCARGAR LA RUTA
+//PARA DESCARGAR LAS DIFERENTES RUTAS
 /**
  * Función que descarga la info MS Plantilla al llamar a una de sus rutas
  * @param {string} ruta Ruta a descargar
@@ -381,19 +381,10 @@ Plantilla.mostrarDeportista = function (idDeportista)
 }
 
 /**
- * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos.
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos ordenados por un campo.
+ * @param {String} campoOrdenar campo por el que se pretenden ordenar los deportistas
  */
 Plantilla.listarCompletoT=function(campoOrdenar)
 {
     this.recuperaDeportistas(campoOrdenar,this.imprimePorCampo);
 }
-
-
-
-
-
-
-
-
-
-

@@ -3,7 +3,7 @@
  * @description Fichero con la especificación de pruebas para la aplicación API-gateway
  * Este fichero DEBE llamarse server-spec.js
  * Este fichero DEBE ubicarse en el subdirectorio spec/
- * @author Víctor M. Rivas <vrivas@ujaen.es>
+ * @author Alba Gómez Liébana <agl00108@readonly.ujaen.es>
  * @date 03-feb-2023
  */
 
@@ -51,6 +51,18 @@ describe('API Gateway: rutas estáticas', () => {
 
         })
         .end((error) => { error ? done.fail(error) : done() })
+    });
+    it('Devuelve Heavyweight al recuperar los datos de la Persona con id 358470619171389645 mediante getPorId', (done) => {
+      supertest(app)
+        .get('/plantilla/getPorId/358470619171389645')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          assert(res.body.data.hasOwnProperty('categoria'));
+          assert(res.body.data.categoria === "Heavyweight");
+        })
+        .end((error) => { error ? done.fail(error) : done(); }
+        );
     });
   })
 });

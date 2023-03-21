@@ -3,7 +3,7 @@
  * @description Fichero con la especificación de las pruebas TDD para server.js del MS MS Plantilla
  *              Este fichero DEBE llamarse server-spec.js
  *              Este fichero DEBE ubicarse en el subdirectorio spec/
- * @author Víctor M. Rivas Santos <vrivas@ujaen.es>
+ * @author Alba Gómez Liébana <agl00108@red.ujaen.es>
  * @date 03-Feb-2023
  */
 

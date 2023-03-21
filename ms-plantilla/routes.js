@@ -1,15 +1,13 @@
 /**
  * @file routes.js
  * @description Define las rutas ante las que va a responder al MS Plantilla
- * @author Víctor M. Rivas <vrivas@ujaen.es>
+ * @author Alba Gómez Liébana <agl00108@red.ujaen.es>
  * @date 03-feb-2023
  */
 
 const express = require("express");
 const router = express.Router();
 const { callbacks } = require("./callbacks");
-
-
 
 /**
  * Ruta raíz: /
@@ -45,7 +43,6 @@ router.get("/test_db", async (req, res) =>
         console.log(error);
     }
 });
-
 
 /**
  * Devuelve todas las personas que hay en la BBDD
