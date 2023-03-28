@@ -19,7 +19,6 @@ describe('API Gateway: rutas estáticas', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
-          //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
           assert(res.body.hasOwnProperty('mensaje'));
           assert(res.body.mensaje === "Microservicio MS Plantilla: home");
 
@@ -32,7 +31,6 @@ describe('API Gateway: rutas estáticas', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
-          //console.log( "BODY ACERCA DE ", res.body ); // Para comprobar qué contiene exactamente res.body
           assert(res.body.hasOwnProperty('mensaje'));
           assert(res.body.mensaje === "Datos de la autora");
 
@@ -45,7 +43,6 @@ describe('API Gateway: rutas estáticas', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
-          //console.log( "Get Todos Personas", res.body ); // Para comprobar qué contiene exactamente res.body
           assert(res.body.hasOwnProperty('data'));
           assert(res.body.data.length === 10);
 
@@ -60,6 +57,43 @@ describe('API Gateway: rutas estáticas', () => {
         .expect(function (res) {
           assert(res.body.data.hasOwnProperty('categoria'));
           assert(res.body.data.categoria === "Heavyweight");
+        })
+        .end((error) => { error ? done.fail(error) : done(); }
+        );
+    });
+    it('Devuelve Alba al recuperar los datos de la Persona con id 358470619171389645 mediante setNombre', (done) => {
+      const NOMBRE_TEST= 'Alba'
+      const deportista = 
+      {
+          id_deportista: '358470619171389645',
+          nombre_deportista: NOMBRE_TEST,
+          apellidos_deportista:"",
+          fechaNacimiento_deportista: 
+          {
+              dia: 13,
+              mes: 5,
+              anio: 1985
+          },
+          aniosParticipacionOlimpiadas_deportista: [2008, 2012, 2016, 2020],
+          numMedallasGanadas_deportista: 3,
+          logros_deportista: [
+            "Plata en Beijing 2008",
+            "Oro en Londres 2012",
+            "Bronce en Río 2016"
+          ],
+          pais_deportista: "Spain",
+          categoria_deportista: "Heavyweight",
+          sexo_deportista: "F"
+      };
+      supertest(app)
+        .post('/plantilla/setNombre')
+        .send(deportista)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) 
+        {
+          assert(res.body.data.hasOwnProperty('nombre'));
+          assert(res.body.data.nombre === NOMBRE_TEST);
         })
         .end((error) => { error ? done.fail(error) : done(); }
         );
