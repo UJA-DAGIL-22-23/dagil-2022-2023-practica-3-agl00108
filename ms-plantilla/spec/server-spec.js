@@ -49,14 +49,14 @@ describe('Servidor PLANTILLA:', () => {
    * Tests para acceso a la BBDD
    */
   describe('Acceso a BBDD:', () => {
-    it('Devuelve Lidia al consultar mediante test_db', (done) => {
+    it('Devuelve Valentin Perez al consultar mediante test_db', (done) => {
       supertest(app)
         .get('/test_db')
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
-          assert(res.body.data[0].data.hasOwnProperty('nombre'));
-          assert(res.body.data[0].data.nombre === "Lidia");
+          assert(res.body.data[0].data.hasOwnProperty('apellidos'));
+          assert(res.body.data[0].data.apellidos === "Valentin Perez");
 
         })
         .end((error) => { error ? done.fail(error) : done(); }
@@ -86,6 +86,44 @@ describe('Servidor PLANTILLA:', () => {
         assert(res.body.data.categoria === "Heavyweight");
       })
       .end((error) => { error ? done.fail(error) : done(); }
+      );
+  });
+  it('Devuelve Alba al recuperar los datos de la Persona con id 358470619171389645 mediante setNombre', (done) => {
+    const NOMBRE_TEST= 'Alba'
+    const deportista = {
+      id_deportista: '358470619171389645',
+      nombre_deportista: NOMBRE_TEST,
+      apellidos_deportista:"",
+      fechaNacimiento_deportista: 
+      {
+          dia: 13,
+          mes: 5,
+          anio: 1985
+      },
+      aniosParticipacionOlimpiadas_deportista: [2008, 2012, 2016, 2020],
+      numMedallasGanadas_deportista: 3,
+      logros_deportista: [
+        "Plata en Beijing 2008",
+        "Oro en Londres 2012",
+        "Bronce en Río 2016"
+      ],
+      pais_deportista: "Spain",
+      categoria_deportista: "Heavyweight",
+      sexo_deportista: "F"
+
+    };
+    supertest(app)
+      .post('/setNombre')
+      .send(deportista)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(function (res) {
+        console.log( "Server-spec , /setTodo res.body", res.body ); // Para comprobar qué contiene exactamente res.body
+        assert(res.body.data.hasOwnProperty('nombre'));
+        assert(res.body.data.nombre === NOMBRE_TEST);
+      })
+      .end((error) => { error ? done.fail(error) : done(); }
+  
       );
   });
 });
