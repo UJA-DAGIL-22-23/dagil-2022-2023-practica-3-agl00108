@@ -455,7 +455,7 @@ Plantilla.guardar = async function (id_deportista)
 {
     try {
         let url = Frontend.API_GATEWAY + "/plantilla/setNombre/"
-        let id_persona = id_deportista
+        let id = id_deportista
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, cors, *same-origin
@@ -467,7 +467,7 @@ Plantilla.guardar = async function (id_deportista)
             redirect: 'follow', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client
             body: JSON.stringify({
-                "id_persona": id_persona,
+                "id_deportista": id,
                 "nombre_deportista": document.getElementById("deportista-nombre").value,
             }),
         })
