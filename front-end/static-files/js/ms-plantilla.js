@@ -340,7 +340,7 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
             </thead>
             <tbody>
                 <tr title="${deportista.ref["@ref"].id}">
-                    <td><input type="text" class="form-persona-elemento" disabled id="deportista-nombre"
+                    <td><input type="text" class="form-persona-elemento" id="deportista-nombre"
                             value="${deportista.data.nombre}" name="nombre_deportista"/>
                     </td>
                     <td><input type="text" class="form-persona-elemento editable" disabled
@@ -369,14 +369,14 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
                             id="deportista-logros" required value="${deportista.data.logros}" name="logros_deportista"/>
                     </td>
                             
-                        <div><a href="javascript:Personas.guardar('deportista.ref["@ref"].id')" class="opcion-terciaria editar ocultar">Guardar</a></div>
+                        <div><a href="javascript:Plantilla.guardar('358470619171389645')">Guardar</a></div>
                     </td>
                 </tr>
             </tbody>
         </table>
     </form>
     `;
-    Frontend.Article.actualizar("Modifica el nombre del jugador",msj)
+    Frontend.Article.actualizar("Modifica el nombre del deportista",msj)
 }
 
 
@@ -455,7 +455,7 @@ Plantilla.guardar = async function (id_deportista)
 {
     try {
         let url = Frontend.API_GATEWAY + "/plantilla/setNombre/"
-        let id_deportista = id_deportista
+        let id_persona = id_deportista
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, cors, *same-origin
@@ -467,16 +467,8 @@ Plantilla.guardar = async function (id_deportista)
             redirect: 'follow', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client
             body: JSON.stringify({
-                "id_deportista": id_deportista,
-                "nombre_deportista": document.getElementById("form-persona-nombre").value,
-                "apellidos_deportista": document.getElementById("form-persona-apellidos").value,
-                "fechaNacimiento_deportista": document.getElementById("form-persona-fechaNacimiento").value,
-                "aniosParticipacionOlimpiadas_deportista": document.getElementById("form-aniosParticipacionOlimpiadas").value,
-                "numMedallasGanadas_deportista": document.getElementById("form-numMedallasGanadas").value,
-                "logros_deportista": document.getElementById("form-logros").value,
-                "pais_deportista": document.getElementById("form-pais").value,
-                "categoria_deportista": document.getElementById("form-categoria").value,
-                "sexo_deportista": document.getElementById("form-sexo").value
+                "id_persona": id_persona,
+                "nombre_deportista": document.getElementById("deportista-nombre").value,
             }),
         })
         /*

@@ -95,7 +95,8 @@ const CB_MODEL_SELECTS = {
                 q.Update(
                     q.Ref(q.Collection(COLLECTION), data.id_deportista),
                     {
-                        data: {
+                        data: 
+                        {
                             nombre: data.nombre_deportista,
                         },
                     },
