@@ -113,42 +113,6 @@ Plantilla.pieTable = function ()
     return "</tbody></table>";
 }
 
-//PARA EDITAR LOS CAMPOS DE UNA PERSONA
-Personas.plantillaFormularioPersona.formulario = `
-<form method='post' action=''>
-    <table width="100%" class="listado-personas">
-        <thead>
-            <th width="10%">Id</th><th width="20%">Nombre</th><th width="20%">Apellidos</th><th width="10%">eMail</th>
-            <th width="15%">Año contratación</th><th width="25%">Acciones</th>
-        </thead>
-        <tbody>
-            <tr title="${Personas.plantillaTags.ID}">
-                <td><input type="text" class="form-persona-elemento" disabled id="form-persona-id"
-                        value="${Personas.plantillaTags.ID}" 
-                        name="id_persona"/></td>
-                <td><input type="text" class="form-persona-elemento editable" disabled
-                        id="form-persona-nombre" required value="${Personas.plantillaTags.NOMBRE}" 
-                        name="nombre_persona"/></td>
-                <td><input type="text" class="form-persona-elemento editable" disabled
-                        id="form-persona-apellidos" value="${Personas.plantillaTags.APELLIDOS}" 
-                        name="apellidos_persona"/></td>
-                <td><input type="email" class="form-persona-elemento editable" disabled
-                        id="form-persona-email" required value="${Personas.plantillaTags.EMAIL}" 
-                        name="email_persona"/></td>
-                <td><input type="number" class="form-persona-elemento editable" disabled
-                        id="form-persona-anio" min="1950" max="2030" size="8" required
-                        value="${Personas.plantillaTags["AÑO ENTRADA"]}" 
-                        name="año_entrada_persona"/></td>
-                <td>
-                    <div><a href="javascript:Personas.editar()" class="opcion-secundaria mostrar">Editar</a></div>
-                    <div><a href="javascript:Personas.guardar()" class="opcion-terciaria editar ocultar">Guardar</a></div>
-                    <div><a href="javascript:Personas.cancelar()" class="opcion-terciaria editar ocultar">Cancelar</a></div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-`;
 
 
 
@@ -367,6 +331,54 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
     Frontend.Article.actualizar("Listado de deportistas completo ordenado ", msj);
   }
 
+  Plantilla.modificarNombre = function (deportista) 
+    { 
+        let msj=`<form method='post' action=''>
+        <table width="100%" class="listado-personas">
+            <thead>
+            <table class="listado-deportistas"><thead><th>Nombre</th><th>Apellidos</th><th>País</th><th>Categoría</th><th>Sexo</th><th>Fecha nacimiento</th><th>Medallas ganadas</th><th>Años participación</th><th>Logros</th></thead><tbody>
+            </thead>
+            <tbody>
+                <tr title="${deportista.ref["@ref"].id}">
+                    <td><input type="text" class="form-persona-elemento" disabled id="deportista-nombre"
+                            value="${deportista.data.nombre}" name="nombre_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable" disabled
+                            id="deportista-apellidos" required value="${deportista.data.apellidos}" name="apellidos_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable" disabled
+                            id="deportista-pais" required value="${deportista.data.pais}" name="pais_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable" disabled
+                            id="deportista-categoria" required value="${deportista.data.categoria}" name="categoria_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable" disabled
+                            id="deportista-sexo" required value="${deportista.data.sexo}" name="sexo_deportista"/>
+                    </td>
+                    <td><input type="date" class="form-persona-elemento editable" disabled
+                            id="deportista_fechaNacimiento" value="${deportista.data.fechaNacimiento.dia}/${deportista.data.fechaNacimiento.mes}/${deportista.data.fechaNacimiento.anio}" 
+                            name="fechaNacimiento_deportista"/>
+                    </td>
+                    <td><input type="number" class="form-persona-elemento editable" disabled
+                            id="deportista-numMedallasGanadas" required value="${deportista.data.numMedallasGanadas}" name="numMedallasGanadas_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable" disabled
+                            id="deportista-aniosParticipacionOlimpiadas" required value="${deportista.data.aniosParticipacionOlimpiadas}" name="aniosParticipacionOlimpiadas_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable" disabled
+                            id="deportista-logros" required value="${deportista.data.logros}" name="logros_deportista"/>
+                    </td>
+                            
+                        <div><a href="javascript:Personas.guardar('deportista.ref["@ref"].id')" class="opcion-terciaria editar ocultar">Guardar</a></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    `;
+    Frontend.Article.actualizar("Modifica el nombre del jugador",msj)
+}
+
 
 //FUNCIONES PRINCIPALES 
 /**
@@ -426,32 +438,24 @@ Plantilla.listarCompletoT = function(campoOrdenar)
 {
     this.recuperaDeportistas(campoOrdenar,this.imprimePorCampo);
 }
+
 /**
- * Función que permite modificar los datos de un deportista
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos ordenados por un campo.
+ * @param {String} campoOrdenar campo por el que se pretenden ordenar los deportistas
  */
-Plantilla.editar = function () {
-    this.ocultarOpcionesSecundarias()
-    this.mostrarOcionesTerciariasEditar()
-    this.habilitarCamposEditables()
+Plantilla.modifyNombre = function(idDeportista)
+{
+    this.recuperaDeportista(idDeportista,this.modificarNombre);
 }
 
 /**
- * Función que permite cancelar la acción sobre los datos de un deportista
- */
-Plantilla.cancelar = function () {
-    this.imprimeUnaPersona(this.recuperaDatosAlmacenados())
-    this.deshabilitarCamposEditables()
-    this.ocultarOcionesTerciariasEditar()
-    this.mostrarOpcionesSecundarias()
-}
-/**
  * Función para guardar los datos de un deportista al que se le va a cambiar el nombre
  */
-Plantilla.guardar = async function () 
+Plantilla.guardar = async function (id_deportista) 
 {
     try {
         let url = Frontend.API_GATEWAY + "/plantilla/setNombre/"
-        let id_deportista = document.getElementById("form-deportista-id").value
+        let id_deportista = id_deportista
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, cors, *same-origin
@@ -482,7 +486,7 @@ Plantilla.guardar = async function ()
             alert(persona)
         }
         */
-        Plantilla.mostrar(id_deportista)
+        Plantilla.mostrarDeportista(id_deportista)
     } catch (error) {
         alert("Error: No se han podido acceder al API Gateway " + error)
     }
