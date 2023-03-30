@@ -379,6 +379,54 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
     Frontend.Article.actualizar("Modifica el nombre del deportista",msj)
 }
 
+Plantilla.modificarCampos = function (deportista) 
+{ 
+    let msj=`<form method='post' action=''>
+    <table width="100%" class="listado-personas">
+        <thead>
+        <table class="listado-deportistas"><thead><th>Nombre</th><th>Apellidos</th><th>País</th><th>Categoría</th><th>Sexo</th><th>Fecha nacimiento</th><th>Medallas ganadas</th><th>Años participación</th><th>Logros</th></thead><tbody>
+        </thead>
+        <tbody>
+            <tr title="${deportista.ref["@ref"].id}">
+                <td><input type="text" class="form-persona-elemento" id="deportista-nombre"
+                        value="${deportista.data.nombre}" name="nombre_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" 
+                        id="deportista-apellidos" required value="${deportista.data.apellidos}" name="apellidos_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" 
+                        id="deportista-pais" required value="${deportista.data.pais}" name="pais_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" 
+                        id="deportista-categoria" required value="${deportista.data.categoria}" name="categoria_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="deportista-sexo" required value="${deportista.data.sexo}" name="sexo_deportista"/>
+                </td>
+                <td><input type="date" class="form-persona-elemento editable" disabled
+                        id="deportista_fechaNacimiento" value="${deportista.data.fechaNacimiento.dia}/${deportista.data.fechaNacimiento.mes}/${deportista.data.fechaNacimiento.anio}" 
+                        name="fechaNacimiento_deportista"/>
+                </td>
+                <td><input type="number" class="form-persona-elemento editable" disabled
+                        id="deportista-numMedallasGanadas" required value="${deportista.data.numMedallasGanadas}" name="numMedallasGanadas_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="deportista-aniosParticipacionOlimpiadas" required value="${deportista.data.aniosParticipacionOlimpiadas}" name="aniosParticipacionOlimpiadas_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="deportista-logros" required value="${deportista.data.logros}" name="logros_deportista"/>
+                </td>
+                        
+                    <div><a href="javascript:Plantilla.guardar('358470619171389645')">Guardar</a></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+`;
+Frontend.Article.actualizar("Modifica los campos del deportista",msj)
+}
+
 
 //FUNCIONES PRINCIPALES 
 /**
@@ -449,6 +497,15 @@ Plantilla.modifyNombre = function(idDeportista)
 }
 
 /**
+ * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos ordenados por un campo.
+ * @param {String} campoOrdenar campo por el que se pretenden ordenar los deportistas
+ */
+Plantilla.modifyCampos = function(idDeportista)
+{
+    this.recuperaDeportista(idDeportista,this.modificarCampos);
+}
+
+/**
  * Función para guardar los datos de un deportista al que se le va a cambiar el nombre
  */
 Plantilla.guardar = async function (id_deportista) 
@@ -469,6 +526,9 @@ Plantilla.guardar = async function (id_deportista)
             body: JSON.stringify({
                 "id_deportista": id,
                 "nombre_deportista": document.getElementById("deportista-nombre").value,
+                "apellidos_deportista": document.getElementById("deportista-apellidos").value,
+                "pais_deportista": document.getElementById("deportista-pais").value,
+                "categoria_deportista": document.getElementById("deportista-categoria").value,
             }),
         })
         /*

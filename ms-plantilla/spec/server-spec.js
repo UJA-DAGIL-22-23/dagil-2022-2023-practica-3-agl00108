@@ -49,14 +49,14 @@ describe('Servidor PLANTILLA:', () => {
    * Tests para acceso a la BBDD
    */
   describe('Acceso a BBDD:', () => {
-    it('Devuelve Valentin Perez al consultar mediante test_db', (done) => {
+    it('Devuelve F al consultar mediante test_db', (done) => {
       supertest(app)
         .get('/test_db')
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
-          assert(res.body.data[0].data.hasOwnProperty('apellidos'));
-          assert(res.body.data[0].data.apellidos === "Valentin Perez");
+          assert(res.body.data[0].data.hasOwnProperty('sexo'));
+          assert(res.body.data[0].data.sexo === "F");
 
         })
         .end((error) => { error ? done.fail(error) : done(); }
@@ -76,25 +76,28 @@ describe('Servidor PLANTILLA:', () => {
       );
   });
 
-  it('Devuelve Heavyweight al recuperar los datos de la Persona con id 358470619171389645 mediante getPorId', (done) => {
+  it('Devuelve F al recuperar los datos de la Persona con id 358470619171389645 mediante getPorId', (done) => {
     supertest(app)
       .get('/getPorId/358470619171389645')
       .expect(200)
       .expect('Content-Type', /json/)
       .expect(function (res) {
-        assert(res.body.data.hasOwnProperty('categoria'));
-        assert(res.body.data.categoria === "Heavyweight");
+        assert(res.body.data.hasOwnProperty('sexo'));
+        assert(res.body.data.sexo === "F");
       })
       .end((error) => { error ? done.fail(error) : done(); }
       );
   });
-  it('Devuelve Alba al recuperar los datos de la Persona con id 358470619171389645 mediante setNombre', (done) => {
+  it('Devuelve Alba al recuperar los datos de la Persona con id 358470619171389645 mediante setCampos', (done) => {
     const NOMBRE_TEST= 'Alba'
+    const APELLIDOS_TEST= 'Gómez Liébana'
+    const PAIS_TEST= 'Españita'
+    const CATEGORIA_TEST='Lightweight'
     const deportista = 
     {
         id_deportista: '358470619171389645',
         nombre_deportista: NOMBRE_TEST,
-        apellidos_deportista:"",
+        apellidos_deportista:APELLIDOS_TEST,
         fechaNacimiento_deportista: 
         {
             dia: 13,
@@ -108,12 +111,12 @@ describe('Servidor PLANTILLA:', () => {
           "Oro en Londres 2012",
           "Bronce en Río 2016"
         ],
-        pais_deportista: "Spain",
-        categoria_deportista: "Heavyweight",
+        pais_deportista: PAIS_TEST,
+        categoria_deportista: CATEGORIA_TEST,
         sexo_deportista: "F"
     };
     supertest(app)
-      .post('/setNombre')
+      .post('/setCampos')
       .send(deportista)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -121,6 +124,15 @@ describe('Servidor PLANTILLA:', () => {
       {
         assert(res.body.data.hasOwnProperty('nombre'));
         assert(res.body.data.nombre === NOMBRE_TEST);
+
+        assert(res.body.data.hasOwnProperty('apellidos'));
+        assert(res.body.data.apellidos === APELLIDOS_TEST);
+
+        assert(res.body.data.hasOwnProperty('pais'));
+        assert(res.body.data.pais === PAIS_TEST);
+
+        assert(res.body.data.hasOwnProperty('categoria'));
+        assert(res.body.data.categoria === CATEGORIA_TEST);
       })
       .end((error) => { error ? done.fail(error) : done(); }
       );

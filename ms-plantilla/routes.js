@@ -71,10 +71,10 @@ router.get("/getPorId/:idDeportista", async (req, res) =>
 /**
  * Modifica el nombre de la persona con el id pasado
  */
-router.post("/setNombre", async (req, res) => 
+router.post("/setCampos", async (req, res) => 
 {
     try {
-        await callbacks.setNombre(req, res)
+        await callbacks.setCampos(req, res)
     } catch (error) {
         console.log(error);
     }

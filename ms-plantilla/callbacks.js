@@ -86,7 +86,7 @@ const CB_MODEL_SELECTS = {
     * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
     * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
     */
-    setNombre: async (req, res) => {
+    setCampos: async (req, res) => {
         try 
         {
             let valorDevuelto = {}
@@ -98,6 +98,9 @@ const CB_MODEL_SELECTS = {
                         data: 
                         {
                             nombre: data.nombre_deportista,
+                            apellidos: data.apellidos_deportista,
+                            pais: data.pais_deportista,
+                            categoria: data.categoria_deportista,
                         },
                     },
                 )
