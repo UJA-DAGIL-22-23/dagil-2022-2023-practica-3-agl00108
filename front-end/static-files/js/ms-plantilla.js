@@ -511,7 +511,7 @@ Plantilla.modifyCampos = function(idDeportista)
 Plantilla.guardar = async function (id_deportista) 
 {
     try {
-        let url = Frontend.API_GATEWAY + "/plantilla/setNombre/"
+        let url = Frontend.API_GATEWAY + "/plantilla/setCampos/"
         let id = id_deportista
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
