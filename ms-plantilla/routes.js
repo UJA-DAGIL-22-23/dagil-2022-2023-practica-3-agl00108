@@ -80,5 +80,18 @@ router.post("/setCampos", async (req, res) =>
     }
 });
 
+/**
+ * Añade un nuevo jugador a la base de datos
+ */
+router.post('/setNuevoDeportista', async (req, res) => 
+{
+    try {
+      await callbacks.setNuevoDeportista(req, res);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  
+
 // Exporto el módulo para poder usarlo en server
 module.exports = router;

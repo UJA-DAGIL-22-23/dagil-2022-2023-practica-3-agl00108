@@ -86,7 +86,8 @@ const CB_MODEL_SELECTS = {
     * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
     * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
     */
-    setCampos: async (req, res) => {
+    setCampos: async (req, res) => 
+    {
         try 
         {
             let valorDevuelto = {}
@@ -117,6 +118,55 @@ const CB_MODEL_SELECTS = {
             CORS(res).status(500).json({ error: error.description })
         }
     },
+
+    /**
+    * Método para agregar un nuevo deportista
+    * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
+    * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
+    */
+    setNuevoDeportista: async (req, res) => 
+    {
+        try 
+        {
+          let valorDevuelto = {}
+          let data = (Object.values(req.body)[0] === '') ? JSON.parse(Object.keys(req.body)[0]) : req.body
+          let nuevoDeportista = await client.query(
+            q.Create(
+              q.Collection(COLLECTION),
+              {
+                data: {
+                    nombre: data.nombre_deportista,
+                    apellidos: data.apellidos_deportista,
+                    fechaNacimiento: data.fechaNacimiento_deportista,
+                    aniosParticipacionOlimpiadas: data.aniosParticipacionOlimpiadas_deportista,
+                    numMedallasGanadas: data.numMedallasGanadas_deportista,
+                    logros: data.logros_deportista,
+                    pais: data.pais_deportista,
+                    categoria: data.categoria_deportista,
+                    sexo: data.sexo_deportista
+                  },
+                },
+            )
+            )
+            .then((ret) => {
+                valorDevuelto = ret
+                CORS(res)
+                    .status(200)
+                    .header( 'Content-Type', 'application/json' )
+                    .json(valorDevuelto)
+            })
+            
+          CORS(res)
+            .status(200)
+            .header('Content-Type', 'application/json')
+            .json({ message: 'Deportista agregado correctamente' });
+        } catch (error) 
+        {
+          console.log(error);
+          CORS(res).status(500).json({ error: error.description });
+        }
+      },
+      
 
     /**
      * Método para obtener una persona de la BBDD por su id.
