@@ -379,6 +379,95 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
     Frontend.Article.actualizar("Modifica el nombre del deportista",msj)
 }
 
+Plantilla.guardarNuevoDeportista = async function () 
+{
+    try 
+    {
+      let url = Frontend.API_GATEWAY + "/plantilla/setNuevoDeportista";
+      const response = await fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify({
+          "nombre_deportista": document.getElementById("deportista-nombre").value,
+          "apellidos_deportista": document.getElementById("deportista-apellidos").value,
+          "pais_deportista": document.getElementById("deportista-pais").value,
+          "categoria_deportista": document.getElementById("deportista-categoria").value,
+          "sexo_deportista": document.getElementById("deportista-sexo").value,
+          "fechaNacimiento_deportista": document.getElementById("deportista-fechaNacimiento").value,
+          "numMedallasGanadas_deportista": document.getElementById("deportista-numMedallasGanadas").value,
+          "aniosParticipacionOlimpiadas_deportista": document.getElementById("deportista-aniosParticipacionOlimpiadas").value.split(","),
+          "logros_deportista": document.getElementById("deportista-logros").value.split(","),
+        })
+      });
+  
+      if (response.ok) {
+        const newDeportista = await response.json();
+        alert("Deportista creado con éxito: " + newDeportista.id_deportista);
+        Plantilla.mostrarDeportista(id_deportista)
+      } else {
+        alert("Error al crear el deportista");
+      }
+  
+    } catch (error) {
+      alert("Error: No se han podido acceder al API Gateway " + error);
+    }
+  };
+
+Plantilla.nuevoDeportista = function () 
+{
+    let msj = `<form method='post' action=''>
+        <table width="100%" class="listado-personas">
+            <thead>
+            <table class="listado-deportistas"><thead><th>Nombre</th><th>Apellidos</th><th>País</th><th>Categoría</th><th>Sexo</th><th>Fecha nacimiento</th><th>Medallas ganadas</th><th>Años participación</th><th>Logros</th></thead><tbody>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" class="form-persona-elemento" id="deportista-nombre"
+                            placeholder="Nombre" name="nombre_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable"
+                            id="deportista-apellidos" required placeholder="Apellidos" name="apellidos_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable"
+                            id="deportista-pais" required placeholder="País" name="pais_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable"
+                            id="deportista-categoria" required placeholder="Categoría" name="categoria_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable"
+                            id="deportista-sexo" required placeholder="Sexo" name="sexo_deportista"/>
+                    </td>
+                    <td><input type="date" class="form-persona-elemento editable"
+                            id="deportista-fechaNacimiento" required placeholder="Fecha de Nacimiento" name="fechaNacimiento_deportista"/>
+                    </td>
+                    <td><input type="number" class="form-persona-elemento editable"
+                            id="deportista-numMedallasGanadas" required placeholder="Medallas ganadas" name="numMedallasGanadas_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable"
+                            id="deportista-aniosParticipacionOlimpiadas" required placeholder="Años de participación" name="aniosParticipacionOlimpiadas_deportista"/>
+                    </td>
+                    <td><input type="text" class="form-persona-elemento editable"
+                            id="deportista-logros" required placeholder="Logros" name="logros_deportista"/>
+                    </td>
+                    <td>
+                        <div><a href="javascript:Plantilla.guardarNuevoDeportista()">Guardar</a></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    `;
+    Frontend.Article.actualizar("Nuevo Deportista", msj);
+};
+
+
 Plantilla.modificarCampos = function (deportista) 
 { 
     let msj=`<form method='post' action=''>
@@ -488,8 +577,8 @@ Plantilla.listarCompletoT = function(campoOrdenar)
 }
 
 /**
- * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos ordenados por un campo.
- * @param {String} campoOrdenar campo por el que se pretenden ordenar los deportistas
+ * Función principal para recuperar los datos de un deportista y modificar hasta su nombre
+ * @param {String} idDeportista id del deportista que se debe actualizar
  */
 Plantilla.modifyNombre = function(idDeportista)
 {
@@ -497,20 +586,22 @@ Plantilla.modifyNombre = function(idDeportista)
 }
 
 /**
- * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos ordenados por un campo.
- * @param {String} campoOrdenar campo por el que se pretenden ordenar los deportistas
+ * Función principal para recuperar los datos de un deportista y modificar hasta 3 campos
+ * @param {String} idDeportista id del deportista que se debe actualizar
  */
 Plantilla.modifyCampos = function(idDeportista)
 {
     this.recuperaDeportista(idDeportista,this.modificarCampos);
 }
 
+
 /**
  * Función para guardar los datos de un deportista al que se le va a cambiar el nombre
  */
 Plantilla.guardar = async function (id_deportista) 
 {
-    try {
+    try 
+    {
         let url = Frontend.API_GATEWAY + "/plantilla/setCampos/"
         let id = id_deportista
         const response = await fetch(url, {
@@ -542,4 +633,7 @@ Plantilla.guardar = async function (id_deportista)
     } catch (error) {
         alert("Error: No se han podido acceder al API Gateway " + error)
     }
+
+   
+      
 }
