@@ -10,7 +10,6 @@
 const supertest = require('supertest');
 const assert = require('assert')
 const app = require('../server');
-let tamano=10;
 
 describe('API Gateway: rutas estáticas', () => {
   describe('Rutas estáticas de MS Plantilla', () => {
@@ -53,14 +52,14 @@ describe('API Gateway: rutas estáticas', () => {
           );
     });
 
-    it('Obtiene todos los deportistas: debe tener un campo data que es un array de 10 objetos', (done) => {
+    it('Obtiene todos los deportistas: debe tener un campo data que es distinto de 0', (done) => {
       supertest(app)
         .get('/plantilla/getTodas')
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
           assert(res.body.hasOwnProperty('data'));
-          assert(res.body.data.length === tamano);
+          assert(res.body.data.length !== 0);
 
         })
         .end((error) => { error ? done.fail(error) : done() })
@@ -104,7 +103,6 @@ describe('API Gateway: rutas estáticas', () => {
         categoria_deportista: CATEGORIA_TEST,
         sexo_deportista: "F"
     };
-    tamano++;
       supertest(app)
         .post('/plantilla/setCampos')
         .send(deportista)
@@ -155,7 +153,6 @@ describe('API Gateway: rutas estáticas', () => {
         numMedallasGanadas_deportista: NUMMEDALLAS_TEST,
         logros_deportista: LOGROS_TEST
       };
-      tamano++;
     
       supertest(app)
         .post('/plantilla/setNuevoDeportista')

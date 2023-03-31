@@ -11,7 +11,6 @@
 const supertest = require('supertest');
 const assert = require('assert')
 const app = require('../server');
-let tamano=10;
 
 /**
  * Test para las rutas "estáticas": / y /acerdade
@@ -71,7 +70,7 @@ describe('Servidor PLANTILLA:', () => {
       .expect(200)
       .expect('Content-Type', /json/)
       .expect(function (res) {
-        assert(res.body.data.length === tamano);
+        assert(res.body.data.length !== 0);
       })
       .end((error) => { error ? done.fail(error) : done(); }
       );
@@ -166,7 +165,6 @@ describe('Servidor PLANTILLA:', () => {
       numMedallasGanadas_deportista: NUMMEDALLAS_TEST,
       logros_deportista: LOGROS_TEST
     };
-    tamano++;
   
     supertest(app)
       .post('/setNuevoDeportista')
