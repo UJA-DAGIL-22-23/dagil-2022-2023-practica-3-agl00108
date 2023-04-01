@@ -39,24 +39,23 @@
             title="Modificar campos de un deportista">Modificar Deportista</a>
         <a href="javascript:Plantilla.nuevoDeportista()" class="opcion-principal mostrar"
             title="Crear un nuevo deportista">Crear Deportista</a>
-        <a href="#" id="enlace-formulario" class="opcion-principal">Deportistas Ord</a>
-            <div id="formulario" style="display: none;">
-                <form id="formulario">
-                    <label for="campo">Campo por el cual ordenar:</label>
-                    <select id="campo" name="campo">
-                      <option value="nombre">Nombre</option>
-                      <option value="apellidos">Apellidos</option>
-                      <option value="pais">País</option>
-                      <option value="categoria">Categoría</option>
-                      <option value="sexo">Sexo</option>
-                      <option value="fechaNacimiento">Edad</option>
-                      <option value="numMedallasGanadas">Medallas Ganadas</option>
-                      <option value="aniosParticipacionOlimpiadas">Número de participaciones</option>
-                    </select>
-                    <button type="submit" id="boton-listar">Listar</button>
-                  </form>
-            </div>
-        </nav>
+        <a href="javascript:Plantilla.listarCompletoT()" class="opcion-principal mostrar" title="Listar por un campo">Deportistas Ord</a>
+        <div id="formulario" style="display: none;">
+        <form>
+            <label for="campo">Campo por el cual ordenar:</label>
+            <select id="campo" name="campo">
+            <option value="nombre">Nombre</option>
+            <option value="apellidos">Apellidos</option>
+            <option value="pais">País</option>
+            <option value="categoria">Categoría</option>
+            <option value="sexo">Sexo</option>
+            <option value="fechaNacimiento">Edad</option>
+            <option value="numMedallasGanadas">Medallas Ganadas</option>
+            <option value="aniosParticipacionOlimpiadas">Número de participaciones</option>
+            </select>
+            <button type="submit" id="boton-listar">Listar</button>
+        </form>
+        </div>
 
     <!-- 
         Article en el que se va a mostrar la info cuando se pinche una opción del menú 

@@ -19,23 +19,6 @@ Plantilla.datosDescargadosNulos =
     fecha: ""
 }
 
-//Para formulario del campo a ordenar de los deportistas
-const enlaceMostrarFormulario = document.querySelector('#enlace-formulario');
-const formulario = document.querySelector('#formulario');
-const botonListar = document.querySelector('#boton-listar');
-
-enlaceMostrarFormulario.addEventListener('click', function(event) 
-{
-  event.preventDefault();
-  formulario.style.display = 'block';
-});
-
-botonListar.addEventListener('click', function(event) 
-{
-  event.preventDefault();
-  const campo = document.querySelector('#campo').value;
-  Plantilla.listarCompletoT(campo);
-});
 
 //PARA CREAR LA TABLA DE NOMBRES
 /**
@@ -571,10 +554,34 @@ Plantilla.mostrarDeportista = function (idDeportista)
  * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos ordenados por un campo.
  * @param {String} campoOrdenar campo por el que se pretenden ordenar los deportistas
  */
-Plantilla.listarCompletoT = function(campoOrdenar)
-{
-    this.recuperaDeportistas(campoOrdenar,this.imprimePorCampo);
+Plantilla.listarCompletoT = function() {
+    // Obtener el valor del campo de ordenamiento
+    const campo = document.querySelector('#campo').value;
+
+    // Mostrar el formulario
+    const formulario = document.querySelector('#formulario');
+    formulario.style.display = 'block';
+
+    // Agregar el evento submit al formulario
+    const botonListar = document.querySelector('#boton-listar');
+    formulario.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // Obtener el campo por el cual ordenar
+        const campoOrdenar = document.querySelector('#campo').value;
+        // Recuperar los deportistas ordenados por el campo seleccionado
+        this.recuperaDeportistas(campoOrdenar, this.imprimePorCampo);
+
+        const enlaces = document.querySelectorAll('.mostrar');
+        enlaces.forEach((enlace) => {
+            enlace.addEventListener('click', () => {
+                formulario.style.display = 'none';
+            });
+        });
+    });
 }
+
+
+  
 
 /**
  * Función principal para recuperar los datos de un deportista y modificar hasta su nombre
@@ -634,6 +641,5 @@ Plantilla.guardar = async function (id_deportista)
         alert("Error: No se han podido acceder al API Gateway " + error)
     }
 
-   
       
 }
