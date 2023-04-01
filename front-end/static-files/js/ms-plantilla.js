@@ -97,8 +97,6 @@ Plantilla.pieTable = function ()
 }
 
 
-
-
 //PARA DESCARGAR LAS DIFERENTES RUTAS
 /**
  * Función que descarga la info MS Plantilla al llamar a una de sus rutas
@@ -580,9 +578,24 @@ Plantilla.listarCompletoT = function() {
     });
 }
 
-
+Plantilla.busquedaNombre = function() 
+{
+    const formulario = document.querySelector('#formulario');
+    formulario.style.display = 'block';
   
-
+    // Agregar el evento submit al formulario
+    formulario.addEventListener('submit', (event) => {
+      event.preventDefault();
+      
+      // Obtener el valor del campo de búsqueda
+      const busqueda = document.querySelector('#busqueda').value;
+  
+      // Realizar la búsqueda en la base de datos
+      this.recuperaDeportistasPorNombre(busqueda, this.mostrarDeportistasPorNombre);
+    });
+  }
+  
+  
 /**
  * Función principal para recuperar los datos de un deportista y modificar hasta su nombre
  * @param {String} idDeportista id del deportista que se debe actualizar
