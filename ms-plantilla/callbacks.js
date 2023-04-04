@@ -191,7 +191,8 @@ const CB_MODEL_SELECTS = {
 /**
  * Callbacks adicionales. Fundamentalmente para comprobar que el ms funciona.
  */
-const CB_OTHERS = {
+const CB_OTHERS = 
+{
     /**
      * Devuelve un mensaje indicando que se ha accedido a la home del microservicio
      * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
@@ -228,5 +229,3 @@ const CB_OTHERS = {
 // MUY IMPORTANTE: No debe haber callbacks con el mismo nombre en los distintos objetos, porque si no
 //                 el último que haya SOBREESCRIBE a todos los anteriores.
 exports.callbacks = { ...CB_MODEL_SELECTS, ...CB_OTHERS }
-
-//CB_MODEL_SELECTS.getTodas();

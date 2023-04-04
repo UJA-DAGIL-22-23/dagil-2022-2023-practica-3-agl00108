@@ -7,7 +7,7 @@
 
 "use strict";
 
-/// Creo el espacio de nombres
+///Espacio de nombres
 let Plantilla = {};
 
 // Plantilla de datosDescargados vacíos
@@ -173,8 +173,8 @@ Plantilla.recuperaDeportistas=async function(campoOrden, callBackFn)
 }
 
 /**
- * Función que recupera todos los deportistas y llama a campo
- * @param {String} idDeportista id del deportista a mostrar
+ * Función que recupera todos los deportistas y llama a callBackFn
+ * @param {String} busqueda nombre del deportista a buscar
  * @param {*} callBackFn función llamada cuando se reciban los datos
  */
 Plantilla.recuperaDeportistasPorNombre=async function(busqueda, callBackFn)
@@ -262,7 +262,7 @@ Plantilla.imprimeDeportistas = function (vector)
 }
 
 /**
- * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD alfabétiamente.
+ * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD alfabéticamente
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
  */
 Plantilla.imprimeDeportistasAlf = function (vector) 
@@ -293,7 +293,7 @@ Plantilla.imprimeCompleto = function (vector)
 }
 
 /**
- * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD
+ * Función para mostrar en pantalla todos los datos de un deportista que se han recuperado de la BBDD
  * @param {Deportista} deportistaUnico con los datos de los deportistas a mostrar
  */
 Plantilla.imprimeDeportista = function (deportistaUnico) 
@@ -342,11 +342,11 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
     */
   Plantilla.mostrarDeportistasPorNombre = function (busqueda,vector) 
   {
-    // Obtener el nombre buscado de la cadena de búsqueda
+    //Para obtener el nombre de la cadena de búsqueda
     const nombreBuscado = busqueda.match(/"(.*?)"/)[1];
-    const deportistasFiltrados = vector.filter(deportista => deportista.data.nombre === nombreBuscado);
+    //Filtramos para obtener su nombre
+    const deportistasFiltrados = vector.data.filter(deportista => deportista.data.nombre === nombreBuscado);
 
-    // Generar el mensaje con los resultados
     let msj = "";
     msj += Plantilla.cabeceraTable();
     deportistasFiltrados.forEach(e => msj += Plantilla.cuerpoTr(e));
@@ -354,6 +354,10 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
     Frontend.Article.actualizar("Listado de deportistas completo ordenado ", msj);
   }
 
+  /**
+   * Función que te muestra un formulario para modificar el nombre de un deportista
+   * @param {Deportista} deportista deportista que se le quiere modificar el nombre
+   */
   Plantilla.modificarNombre = function (deportista) 
     { 
         let msj=`<form method='post' action=''>
@@ -402,6 +406,9 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
     Frontend.Article.actualizar("Modifica el nombre del deportista",msj)
 }
 
+/**
+ * Función para guardar un nuevo deportista en la base de datos
+ */
 Plantilla.guardarNuevoDeportista = async function () 
 {
     try 
@@ -443,6 +450,9 @@ Plantilla.guardarNuevoDeportista = async function ()
     }
   };
 
+/**
+ * Función que genera un form para incluir un nuevo deportista en la base de datos
+ */
 Plantilla.nuevoDeportista = function () 
 {
     let msj = `<form method='post' action=''>
@@ -490,7 +500,10 @@ Plantilla.nuevoDeportista = function ()
     Frontend.Article.actualizar("Nuevo Deportista", msj);
 };
 
-
+/**
+ * Función para modificar distintos datos de un deportista
+ * @param {Deportista} deportista deportista al que queremos modificar sus campos
+ */
 Plantilla.modificarCampos = function (deportista) 
 { 
     let msj=`<form method='post' action=''>
@@ -594,22 +607,17 @@ Plantilla.mostrarDeportista = function (idDeportista)
  * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos ordenados por un campo.
  * @param {String} campoOrdenar campo por el que se pretenden ordenar los deportistas
  */
-Plantilla.listarCompletoT = function() {
-    // Obtener el valor del campo de ordenamiento
+Plantilla.listarCompletoT = function() 
+{
     const campo = document.querySelector('#campo').value;
-
-    // Mostrar el formulario
     const formulario = document.querySelector('#formulario');
     formulario.style.display = 'block';
-
-    // Agregar el evento submit al formulario
     const botonListar = document.querySelector('#boton-listar');
+
     formulario.addEventListener('submit', (event) => 
     {
         event.preventDefault();
-        // Obtener el campo por el cual ordenar
         const campoOrdenar = document.querySelector('#campo').value;
-        // Recuperar los deportistas ordenados por el campo seleccionado
         this.recuperaDeportistas(campoOrdenar, this.imprimePorCampo);
 
         const enlaces = document.querySelectorAll('.mostrar');
@@ -626,11 +634,8 @@ Plantilla.listarCompletoT = function() {
 */
 Plantilla.busquedaNombre = function() 
 {
-    // Mostrar el formulario
     const formulario = document.querySelector('#formulario2');
     formulario.style.display = 'block';
-
-    // Agregar el evento submit al formulario
     const botonBuscar = document.querySelector('#buscar');
     formulario.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -646,8 +651,7 @@ Plantilla.busquedaNombre = function()
         });    
     });
 };
-
-  
+ 
 /**
  * Función principal para recuperar los datos de un deportista y modificar hasta su nombre
  * @param {String} idDeportista id del deportista que se debe actualizar
@@ -665,7 +669,6 @@ Plantilla.modifyCampos = function(idDeportista)
 {
     this.recuperaDeportista(idDeportista,this.modificarCampos);
 }
-
 
 /**
  * Función para guardar los datos de un deportista al que se le va a cambiar el nombre
@@ -694,17 +697,9 @@ Plantilla.guardar = async function (id_deportista)
                 "categoria_deportista": document.getElementById("deportista-categoria").value,
             }),
         })
-        /*
-        Error: No procesa bien la respuesta devuelta
-        if (response) {
-            const persona = await response.json()
-            alert(persona)
-        }
-        */
+    
         Plantilla.mostrarDeportista(id_deportista)
     } catch (error) {
         alert("Error: No se han podido acceder al API Gateway " + error)
-    }
-
-      
+    }   
 }
