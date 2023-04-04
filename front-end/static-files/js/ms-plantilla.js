@@ -172,6 +172,29 @@ Plantilla.recuperaDeportistas=async function(campoOrden, callBackFn)
     }
 }
 
+/**
+ * Función que recupera todos los deportistas y llama a campo
+ * @param {String} idDeportista id del deportista a mostrar
+ * @param {*} callBackFn función llamada cuando se reciban los datos
+ */
+Plantilla.recuperaDeportistasPorNombre=async function(busqueda, callBackFn)
+{
+    try
+    {
+        const url=Frontend.API_GATEWAY+"/plantilla/getTodas"
+        const response = await fetch(url);
+        if(response)
+        {
+            const deportistas=await response.json()
+            callBackFn(busqueda,deportistas)
+        }
+    }catch(error)
+    {
+        alert("Error: No se ha podido acceder al API Gateway")
+        console.error(error)
+    }
+}
+
 //PARA MOSTRAR LOS DATOS ENVIADOS DESDE HOME
 /**
  * Función principal para mostrar los datos enviados por la ruta "home" de MS Plantilla
@@ -285,7 +308,8 @@ Plantilla.imprimeDeportista = function (deportistaUnico)
 }
 
 /**
- * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD
+ * Función para mostrar en pantalla todos los datos de los deportistas que se han recuperado de la BBDD ordenados por un campo
+ * @param {String} campoOrden campo por el que se deben mostrar
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
  */
 Plantilla.imprimePorCampo = function (campoOrden,vector) 
@@ -309,6 +333,24 @@ Plantilla.imprimePorCampo = function (campoOrden,vector)
     ordenados.forEach(e => msj += Plantilla.cuerpoTr(e));
     msj += Plantilla.pieTable();
   
+    Frontend.Article.actualizar("Listado de deportistas completo ordenado ", msj);
+  }
+
+  /**
+    * Función para mostrar en pantalla todos los datos de los deportistas que coinciden con el criterio de busqueda
+    * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
+    */
+  Plantilla.mostrarDeportistasPorNombre = function (busqueda,vector) 
+  {
+    // Obtener el nombre buscado de la cadena de búsqueda
+    const nombreBuscado = busqueda.match(/"(.*?)"/)[1];
+    const deportistasFiltrados = vector.filter(deportista => deportista.data.nombre === nombreBuscado);
+
+    // Generar el mensaje con los resultados
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    deportistasFiltrados.forEach(e => msj += Plantilla.cuerpoTr(e));
+    msj += Plantilla.pieTable();
     Frontend.Article.actualizar("Listado de deportistas completo ordenado ", msj);
   }
 
@@ -562,7 +604,8 @@ Plantilla.listarCompletoT = function() {
 
     // Agregar el evento submit al formulario
     const botonListar = document.querySelector('#boton-listar');
-    formulario.addEventListener('submit', (event) => {
+    formulario.addEventListener('submit', (event) => 
+    {
         event.preventDefault();
         // Obtener el campo por el cual ordenar
         const campoOrdenar = document.querySelector('#campo').value;
@@ -578,23 +621,32 @@ Plantilla.listarCompletoT = function() {
     });
 }
 
+/**
+ * Función principal para obtener el nombre de búsqueda que quiere el usuario
+*/
 Plantilla.busquedaNombre = function() 
 {
-    const formulario = document.querySelector('#formulario');
+    // Mostrar el formulario
+    const formulario = document.querySelector('#formulario2');
     formulario.style.display = 'block';
-  
+
     // Agregar el evento submit al formulario
+    const botonBuscar = document.querySelector('#buscar');
     formulario.addEventListener('submit', (event) => {
-      event.preventDefault();
-      
-      // Obtener el valor del campo de búsqueda
-      const busqueda = document.querySelector('#busqueda').value;
-  
-      // Realizar la búsqueda en la base de datos
-      this.recuperaDeportistasPorNombre(busqueda, this.mostrarDeportistasPorNombre);
+        event.preventDefault();
+        const busqueda = document.querySelector('#busqueda').value;
+        this.recuperaDeportistasPorNombre(busqueda, this.mostrarDeportistasPorNombre);
+
+        const enlaces = document.querySelectorAll('.mostrar');
+        enlaces.forEach((enlace) => {
+            enlace.addEventListener('click', () => 
+            {
+            formulario.style.display = 'none';
+            });
+        });    
     });
-  }
-  
+};
+
   
 /**
  * Función principal para recuperar los datos de un deportista y modificar hasta su nombre
