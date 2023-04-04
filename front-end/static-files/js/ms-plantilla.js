@@ -131,7 +131,7 @@ Plantilla.descargarRuta = async function (ruta, callBackFn)
  * @param {String} idDeportista id del deportista a mostrar
  * @param {*} callBackFn función llamada cuando se reciban los datos
  */
-Plantilla.recuperaDeportista=async function(idDeportista, callBackFn)
+Plantilla.recuperaDeportista = async function(idDeportista, callBackFn)
 {
     try
     {
@@ -154,7 +154,7 @@ Plantilla.recuperaDeportista=async function(idDeportista, callBackFn)
  * @param {String} idDeportista id del deportista a mostrar
  * @param {*} callBackFn función llamada cuando se reciban los datos
  */
-Plantilla.recuperaDeportistas=async function(campoOrden, callBackFn)
+Plantilla.recuperaDeportistas = async function(campoOrden, callBackFn)
 {
     try
     {
@@ -177,7 +177,7 @@ Plantilla.recuperaDeportistas=async function(campoOrden, callBackFn)
  * @param {String} busqueda nombre del deportista a buscar
  * @param {*} callBackFn función llamada cuando se reciban los datos
  */
-Plantilla.recuperaDeportistasPorNombre=async function(busqueda, callBackFn)
+Plantilla.recuperaDeportistasPorNombre = async function(busqueda, callBackFn)
 {
     try
     {
@@ -573,7 +573,7 @@ Plantilla.procesarAcercaDe = function ()
 /**
  * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas.
  */
-Plantilla.listar=function()
+Plantilla.listar = function()
 {
     this.descargarRuta("/plantilla/getTodas",this.imprimeDeportistas);
 }
@@ -581,7 +581,7 @@ Plantilla.listar=function()
 /**
  * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimirlas ordenados alfabéticamente.
  */
-Plantilla.listarAlf=function()
+Plantilla.listarAlf = function()
 {
     this.descargarRuta("/plantilla/getTodas",this.imprimeDeportistasAlf);
 }
@@ -589,7 +589,7 @@ Plantilla.listarAlf=function()
 /**
  * Función principal para recuperar los deportistas desde el MS y, posteriormente, imprimir todos los datos.
  */
-Plantilla.listarCompleto=function()
+Plantilla.listarCompleto = function()
 {
     this.descargarRuta("/plantilla/getTodas",this.imprimeCompleto);
 }
@@ -656,7 +656,7 @@ Plantilla.busquedaNombre = function()
  * Función principal para recuperar los datos de un deportista y modificar hasta su nombre
  * @param {String} idDeportista id del deportista que se debe actualizar
  */
-Plantilla.modifyNombre = function(idDeportista)
+Plantilla.modifyNombre = function (idDeportista)
 {
     this.recuperaDeportista(idDeportista,this.modificarNombre);
 }
@@ -665,7 +665,7 @@ Plantilla.modifyNombre = function(idDeportista)
  * Función principal para recuperar los datos de un deportista y modificar hasta 3 campos
  * @param {String} idDeportista id del deportista que se debe actualizar
  */
-Plantilla.modifyCampos = function(idDeportista)
+Plantilla.modifyCampos = function (idDeportista)
 {
     this.recuperaDeportista(idDeportista,this.modificarCampos);
 }
