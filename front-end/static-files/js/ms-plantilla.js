@@ -384,6 +384,8 @@ Plantilla.guardarNuevoDeportista = async function () {
     try {
         let url = Frontend.API_GATEWAY + "/plantilla/setNuevoDeportista";
         const response = await fetch(url, {
+            // Víctor: 05-04-2023
+            // Cabecera correcta para enivar datos y que no fastidie el tema de CORS
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
