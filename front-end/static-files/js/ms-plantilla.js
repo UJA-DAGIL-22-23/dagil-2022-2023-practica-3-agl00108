@@ -365,9 +365,9 @@ Plantilla.modificarNombre = function (deportista) {
                     </td>
                     <td><input type="text" class="form-persona-elemento editable" disabled
                             id="deportista-logros" required value="${deportista.data.logros}" name="logros_deportista"/>
-                    </td>
-                            
-                        <div><a href="javascript:Plantilla.guardar('358470619171389645')">Guardar</a></div>
+                    </td> 
+                    <td>
+                    <div class="guardar-btn"><a href="javascript:Plantilla.guardar('358470619171389645')">Guardar</a></div>
                     </td>
                 </tr>
             </tbody>
@@ -376,6 +376,58 @@ Plantilla.modificarNombre = function (deportista) {
     `;
     Frontend.Article.actualizar("Modifica el nombre del deportista", msj)
 }
+
+/**
+ * Función para modificar distintos datos de un deportista
+ * @param {Deportista} deportista deportista al que queremos modificar sus campos
+ */
+Plantilla.modificarCampos = function (deportista) {
+    let msj = `<form method='post' action=''>
+    <table width="100%" class="listado-personas">
+        <thead>
+        <table class="listado-deportistas"><thead><th>Nombre</th><th>Apellidos</th><th>País</th><th>Categoría</th><th>Sexo</th><th>Fecha nacimiento</th><th>Medallas ganadas</th><th>Años participación</th><th>Logros</th></thead><tbody>
+        </thead>
+        <tbody>
+            <tr title="${deportista.ref["@ref"].id}">
+                <td><input type="text" class="form-persona-elemento" id="deportista-nombre"
+                        value="${deportista.data.nombre}" name="nombre_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" 
+                        id="deportista-apellidos" required value="${deportista.data.apellidos}" name="apellidos_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" 
+                        id="deportista-pais" required value="${deportista.data.pais}" name="pais_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" 
+                        id="deportista-categoria" required value="${deportista.data.categoria}" name="categoria_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="deportista-sexo" required value="${deportista.data.sexo}" name="sexo_deportista"/>
+                </td>
+                <td><input type="date" class="form-persona-elemento editable" disabled
+                        id="deportista_fechaNacimiento" value="${deportista.data.fechaNacimiento.dia}/${deportista.data.fechaNacimiento.mes}/${deportista.data.fechaNacimiento.anio}" 
+                        name="fechaNacimiento_deportista"/>
+                </td>
+                <td><input type="number" class="form-persona-elemento editable" disabled
+                        id="deportista-numMedallasGanadas" required value="${deportista.data.numMedallasGanadas}" name="numMedallasGanadas_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="deportista-aniosParticipacionOlimpiadas" required value="${deportista.data.aniosParticipacionOlimpiadas}" name="aniosParticipacionOlimpiadas_deportista"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="deportista-logros" required value="${deportista.data.logros}" name="logros_deportista"/>
+                </td>
+                <td>        
+                <div class="guardar-btn"><a href="javascript:Plantilla.guardar('358470619171389645')">Guardar</a></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+`;
+    Frontend.Article.actualizar("Modifica los campos del deportista", msj)
+}
+
 
 /**
  * Función para guardar un nuevo deportista en la base de datos
@@ -407,14 +459,6 @@ Plantilla.guardarNuevoDeportista = async function () {
                 "logros_deportista": document.getElementById("deportista-logros").value.split(","),
             })
         });
-
-        if (response.ok) {
-            const newDeportista = await response.json();
-            alert("Deportista creado con éxito: " + newDeportista.id_deportista);
-            Plantilla.mostrarDeportista(id_deportista)
-        } else {
-            alert("Error al crear el deportista");
-        }
 
     } catch (error) {
         alert("Error: No se han podido acceder al API Gateway " + error);
@@ -460,7 +504,7 @@ Plantilla.nuevoDeportista = function () {
                             id="deportista-logros" required placeholder="Logros" name="logros_deportista"/>
                     </td>
                     <td>
-                        <div><a href="javascript:Plantilla.guardarNuevoDeportista()">Guardar</a></div>
+                    <div class="guardar-btn"><a href="javascript:Plantilla.guardarNuevoDeportista()">Guardar</a></div>
                     </td>
                 </tr>
             </tbody>
@@ -469,57 +513,6 @@ Plantilla.nuevoDeportista = function () {
     `;
     Frontend.Article.actualizar("Nuevo Deportista", msj);
 };
-
-/**
- * Función para modificar distintos datos de un deportista
- * @param {Deportista} deportista deportista al que queremos modificar sus campos
- */
-Plantilla.modificarCampos = function (deportista) {
-    let msj = `<form method='post' action=''>
-    <table width="100%" class="listado-personas">
-        <thead>
-        <table class="listado-deportistas"><thead><th>Nombre</th><th>Apellidos</th><th>País</th><th>Categoría</th><th>Sexo</th><th>Fecha nacimiento</th><th>Medallas ganadas</th><th>Años participación</th><th>Logros</th></thead><tbody>
-        </thead>
-        <tbody>
-            <tr title="${deportista.ref["@ref"].id}">
-                <td><input type="text" class="form-persona-elemento" id="deportista-nombre"
-                        value="${deportista.data.nombre}" name="nombre_deportista"/>
-                </td>
-                <td><input type="text" class="form-persona-elemento editable" 
-                        id="deportista-apellidos" required value="${deportista.data.apellidos}" name="apellidos_deportista"/>
-                </td>
-                <td><input type="text" class="form-persona-elemento editable" 
-                        id="deportista-pais" required value="${deportista.data.pais}" name="pais_deportista"/>
-                </td>
-                <td><input type="text" class="form-persona-elemento editable" 
-                        id="deportista-categoria" required value="${deportista.data.categoria}" name="categoria_deportista"/>
-                </td>
-                <td><input type="text" class="form-persona-elemento editable" disabled
-                        id="deportista-sexo" required value="${deportista.data.sexo}" name="sexo_deportista"/>
-                </td>
-                <td><input type="date" class="form-persona-elemento editable" disabled
-                        id="deportista_fechaNacimiento" value="${deportista.data.fechaNacimiento.dia}/${deportista.data.fechaNacimiento.mes}/${deportista.data.fechaNacimiento.anio}" 
-                        name="fechaNacimiento_deportista"/>
-                </td>
-                <td><input type="number" class="form-persona-elemento editable" disabled
-                        id="deportista-numMedallasGanadas" required value="${deportista.data.numMedallasGanadas}" name="numMedallasGanadas_deportista"/>
-                </td>
-                <td><input type="text" class="form-persona-elemento editable" disabled
-                        id="deportista-aniosParticipacionOlimpiadas" required value="${deportista.data.aniosParticipacionOlimpiadas}" name="aniosParticipacionOlimpiadas_deportista"/>
-                </td>
-                <td><input type="text" class="form-persona-elemento editable" disabled
-                        id="deportista-logros" required value="${deportista.data.logros}" name="logros_deportista"/>
-                </td>
-                        
-                    <div><a href="javascript:Plantilla.guardar('358470619171389645')">Guardar</a></div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-`;
-    Frontend.Article.actualizar("Modifica los campos del deportista", msj)
-}
 
 
 //FUNCIONES PRINCIPALES 

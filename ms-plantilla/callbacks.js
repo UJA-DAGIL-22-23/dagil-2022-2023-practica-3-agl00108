@@ -155,11 +155,7 @@ const CB_MODEL_SELECTS = {
                     .header( 'Content-Type', 'application/json' )
                     .json(valorDevuelto)
             })
-            
-          CORS(res)
-            .status(200)
-            .header('Content-Type', 'application/json')
-            .json({ message: 'Deportista agregado correctamente' });
+        
         } catch (error) 
         {
           console.log(error);

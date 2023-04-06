@@ -53,7 +53,6 @@ table.listado-deportistas tbody th
     height: 2.5em;
     background-color: rgb(203, 87, 179);
     text-transform: uppercase;
-
 }
 
 table.listado-deportistas tbody th 
@@ -73,6 +72,28 @@ table.listado-deportistas tbody tr
     height: 2em;
     background-color: rgba(0, 0, 100, 0.1)
 }
+
+.guardar-btn {
+    background-color: rgb(203, 87, 179);
+    color: #FFF;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .guardar-btn:hover {
+    background-color: rgba(0, 0, 100, 0.1);
+    cursor: pointer;
+  }
+  
+  .guardar-btn a {
+    text-decoration: none;
+    color: #FFF;
+    font-weight: bold;
+  }
+  
+  
+  
  
  
 
