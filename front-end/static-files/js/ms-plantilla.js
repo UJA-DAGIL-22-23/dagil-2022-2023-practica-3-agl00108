@@ -19,14 +19,13 @@ Plantilla.datosDescargadosNulos =
     fecha: ""
 }
 
-
 //PARA CREAR LA TABLA DE NOMBRES
 /**
  * Crea la cabecera para mostrar la info como tabla de los nombres de los deportistas
  * @returns Cabecera de la tabla 
  */
 Plantilla.cabeceraTableNombre = function () {
-    return `<table class="listado-nombres"><thead><th>Nombre del deportista</th></thead><tbody>`;
+    return `<table class="listado-nombres"><thead><th>Nombre del deportista</th></thead><tbody><a href="javascript:Plantilla.listarAlf()" class="opcion-principal mostrar"title="Listar todos los nombres de los deportistas en la base de datos en órden alfabético">Ordenar Alfabéticamente</a>`;
 }
 
 /**
@@ -79,6 +78,12 @@ Plantilla.cuerpoTr = function (p) {
         <td>${d.numMedallasGanadas}</td>
         <td>${d.aniosParticipacionOlimpiadas}</td>
         <td>${d.logros}</td>
+        <td>
+            <div class="guardar-btn"><a href="javascript:Plantilla.modifyNombre('${p.ref['@ref'].id}')">Editar Nombre</a></div>
+        </td>
+        <td>
+            <div class="guardar-btn"><a href="javascript:Plantilla.modifyCampos('${p.ref['@ref'].id}')">Editar</a></div>
+        </td>
     </tr>`;
 }
 
@@ -314,8 +319,12 @@ Plantilla.imprimePorCampo = function (campoOrden, vector) {
   * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
   */
 Plantilla.mostrarDeportistasPorNombre = function (busqueda, vector) {
-    //Para obtener el nombre de la cadena de búsqueda
-    const nombreBuscado = busqueda.match(/"(.*?)"/)[1];
+    const match = busqueda.match(/"(.*?)"/);
+    if (!match) 
+    {
+    return "";
+    }
+    const nombreBuscado = match[1];
     //Filtramos para obtener su nombre
     const deportistasFiltrados = vector.data.filter(deportista => deportista.data.nombre === nombreBuscado);
 
@@ -324,6 +333,7 @@ Plantilla.mostrarDeportistasPorNombre = function (busqueda, vector) {
     deportistasFiltrados.forEach(e => msj += Plantilla.cuerpoTr(e));
     msj += Plantilla.pieTable();
     Frontend.Article.actualizar("Listado de deportistas completo ordenado ", msj);
+    return msj;
 }
 
 /**
@@ -459,6 +469,7 @@ Plantilla.guardarNuevoDeportista = async function () {
                 "logros_deportista": document.getElementById("deportista-logros").value.split(","),
             })
         });
+        Plantilla.listarCompleto();
 
     } catch (error) {
         alert("Error: No se han podido acceder al API Gateway " + error);
@@ -644,9 +655,8 @@ Plantilla.guardar = async function (id_deportista) {
                 "pais_deportista": document.getElementById("deportista-pais").value,
                 "categoria_deportista": document.getElementById("deportista-categoria").value,
             }),
-        })
-
-        Plantilla.mostrarDeportista(id_deportista)
+        });
+        Plantilla.mostrarDeportista(id_deportista);
     } catch (error) {
         alert("Error: No se han podido acceder al API Gateway " + error)
     }

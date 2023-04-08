@@ -73,7 +73,7 @@ describe("Plantilla.mostrarHome: ", function () {
 })
 
 
-describe("Plantilla.mostrarAcercaDe: ", function () {
+describe("Plantilla.mostrarAcercaDe(): ", function () {
     it("muestra datos nulos cuando le pasamos un valor nulo",
         function () {
             Plantilla.mostrarAcercaDe()
@@ -125,17 +125,16 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
         })
 })
 
-describe("Cabecera tabla ", function () 
+describe("Plantilla.cabeceraTableNombre():", function () 
 {
     it("debería devolver las etiquetas HTML para la cabecera de la tabla",
         function () {
-            expect(Plantilla.cabeceraTableNombre()).toBe(`<table class="listado-nombres"><thead><th>Nombre del deportista</th></thead><tbody>`);
+            expect(Plantilla.cabeceraTableNombre()).toBe(`<table class="listado-nombres"><thead><th>Nombre del deportista</th></thead><tbody><a href="javascript:Plantilla.listarAlf()" class="opcion-principal mostrar"title="Listar todos los nombres de los deportistas en la base de datos en órden alfabético">Ordenar Alfabéticamente</a>`);
         });
 });
 
-describe("cuerpo con los nombres ", function () 
+describe("Plantilla.cuerpoTrNombre", function () 
 {
-    // Preparo los datos
     let vector = {}
             vector.data = [
                 {
@@ -160,7 +159,6 @@ describe("cuerpo con los nombres ", function ()
                 }
             ]
 
-    // Realizo los expect
     it("debería devolver una fila de tabla con los nombres de los deportistas",
         function () {
             for (let i = 0; i < vector.data.length; ++i) 
@@ -173,7 +171,7 @@ describe("cuerpo con los nombres ", function ()
         });
     });
 
-describe("Pie tabla ", function () 
+describe("Plantilla.pieTableNombre():", function () 
 {
     it("debería devolver las etiquetas HTML para el pie de tabla",
         function () {
@@ -181,11 +179,10 @@ describe("Pie tabla ", function ()
         });
 });
 
-describe("Plantilla.imprimeDeportistas: ", function () 
+describe("Plantilla.imprimeDeportistas(): ", function () 
     {
         it("Observa si los nombres se muestran",
         function () {
-            //Primero preparamos unos datos estáticos
             let vector = {}
             vector.data = [
                 {
@@ -210,13 +207,13 @@ describe("Plantilla.imprimeDeportistas: ", function ()
                 }
             ]
             Plantilla.imprimeDeportistas(vector)
-            // Compruebo que en el primer TD De la tabla se ha escrito Ana
+            // Compruebo que en el primer TD De la tabla se ha escrito Luis
             expect(elementoContenido.getElementsByTagName("td")[0].innerText.search('Luis') >= 0).toBeTrue()
             expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Luis')).toBeTrue()
         })
     })
 
-    describe("Plantilla.imprimeDeportistasAlf: ", function () 
+    describe("Plantilla.imprimeDeportistasAlf(): ", function () 
     {
         it("Observa si los nombres se ordenan alfabéticamente",
         function () {
@@ -245,13 +242,11 @@ describe("Plantilla.imprimeDeportistas: ", function ()
             ]
             Plantilla.imprimeDeportistasAlf(vector)
             // Compruebo que en el primer TD De la tabla se ha escrito Ana
-            //expect(elementoContenido.getElementsByTagName("td")[0].innerText.search('Pepito') >= 0).toBeTrue()
             expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Ana')).toBeTrue()
-
         })
     })
 
-    describe("Cabecera tabla de todos los datos", function () 
+    describe("Plantilla.cabeceraTable():", function () 
     {
         it("debería devolver las etiquetas HTML para la cabecera de la tabla",
             function () {
@@ -259,9 +254,8 @@ describe("Plantilla.imprimeDeportistas: ", function ()
             });
     });
 
-    describe("Cuerpo con todos los datos de los deportistas", function () 
+    describe("Plantilla.cuerpoTr():", function () 
     {
-        // Preparo los datos
         let vector = {}
             vector.data = [
                 {
@@ -337,15 +331,15 @@ describe("Plantilla.imprimeDeportistas: ", function ()
         });
     });
 
-    describe("Pie tabla ", function () 
+    describe("Plantilla.pieTable():", function () 
     {
         it("debería devolver las etiquetas HTML para el pie de tabla",
             function () {
-                expect(Plantilla.pieTableNombre()).toBe("</tbody></table>");
+                expect(Plantilla.pieTable()).toBe("</tbody></table>");
             });
     });
 
-    describe("Plantilla.imprimeCompleto: ", function () 
+    describe("Plantilla.imprimeCompleto(): ", function () 
     {
         it("Observa si los datos se muestran",
         function () {
@@ -425,7 +419,7 @@ describe("Plantilla.imprimeDeportistas: ", function ()
         })
     })
 
-    describe("Plantilla.imprimePorCampo: ", function () 
+    describe("Plantilla.imprimePorCampo(): ", function () 
     {
         it("Observa si los datos se ordenan en relación a distintos campos utilizados",
         function () {
@@ -515,20 +509,115 @@ describe("Plantilla.imprimeDeportistas: ", function ()
         })
     })
 
+    describe("Plantilla.modificarNombre(): ", function () 
+    {
+        it("Vemos si el formulario se muestra bien",
+        function () {
+            deportista = {
+                ref: {
+                  "@ref": {
+                    id: "123"
+                  }
+                },
+                data: {
+                  nombre: "Lidia",
+                  apellidos: "Valentin Perez",
+                  fechaNacimiento: {
+                    dia: 13,
+                    mes: 5,
+                    anio: 1985
+                  },
+                  aniosParticipacionOlimpiadas: [2008, 2012, 2016, 2020],
+                  numMedallasGanadas: 3,
+                  logros: [
+                    "Plata en Beijing 2008",
+                    "Oro en Londres 2012",
+                    "Bronce en Río 2016"
+                  ],
+                  pais: "Spain",
+                  categoria: "Heavyweight",
+                  sexo: "F"
+                }
+              };
+    //Plantilla.modificarNombre(deportista);
+    //expect(Plantilla.modificarNombre).toBe(msj);        
+        })
+    })
+
+    describe("mostrarDeportistasPorNombre(): ", function () 
+    {
+        it("Vemos si la búsqueda se realiza bien",
+        function () {
+            let vector = {}
+            vector.data = [
+                {
+                    ref: {
+                        "@ref": {
+                            id: "ref persona 1"
+                        }
+                    },
+                    data: {
+                        nombre: "Lidia",
+                        apellidos: "Valentin Perez",
+                        fechaNacimiento: {
+                            dia: 13,
+                            mes: 5,
+                            anio: 1985
+                        },
+                        aniosParticipacionOlimpiadas: [2008, 2012, 2016, 2020],
+                        numMedallasGanadas: 3,
+                        logros: [
+                            "Plata en Beijing 2008",
+                            "Oro en Londres 2012",
+                            "Bronce en Río 2016"
+                        ],
+                        pais: "Spain",
+                        categoria: "Heavyweight",
+                        sexo: "F"
+                    }
+                },
+                {
+                    ref: {
+                        "@ref": {
+                            id: "ref persona 2"
+                        }
+                    },
+                    data: {
+                        nombre: "Shi",
+                        apellidos: "Zhiyong",
+                        fechaNacimiento: {
+                            dia: 3,
+                            mes: 4,
+                            anio: 1993
+                        },
+                        aniosParticipacionOlimpiadas: [2016, 2020],
+                        numMedallasGanadas: 2,
+                        logros: ["Oro en Río 2016", "Oro en Tokio 2020"],
+                        pais: "China",
+                        categoria: "Lightweight",
+                        sexo: "M"
+                    }
+                }
+            ]   
+            let busqueda='Busca a "Shi"';
+            let msj = Plantilla.mostrarDeportistasPorNombre(busqueda,vector);
+            let persona = vector.data[1];
+            const fecha = new Date(persona.data.fechaNacimiento.anio, persona.data.fechaNacimiento.mes - 1, persona.data.fechaNacimiento.dia);
+            const fechaFormateada = fecha.toLocaleDateString();
+            expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
+            expect(msj.includes(persona.data.nombre)).toBeTrue();
+            expect(msj.includes(persona.data.apellidos)).toBeTrue();
+            expect(msj.includes(fechaFormateada)).toBeTrue();
+            expect(msj.includes(persona.data.aniosParticipacionOlimpiadas)).toBeTrue();
+            expect(msj.includes(persona.data.numMedallasGanadas)).toBeTrue();
+            expect(msj.includes(persona.data.logros)).toBeTrue();
+            expect(msj.includes(persona.data.pais)).toBeTrue();
+            expect(msj.includes(persona.data.categoria)).toBeTrue();
+            expect(msj.includes(persona.data.sexo)).toBeTrue();     
+        })
+    })
+
+
 
     
-/*
-IMPORTANTE
-==========
 
-Las pruebas TDD que se encargan de probar las conexiones con el microservicio desde el cliente son difíciles de probar 
-dado que requieren solucionar temas de sincronización. 
-Esto afecta a los métodos:
- - Plantilla.descargarRuta
- - Plantilla.procesarAcercaDe
- - Plantilla.procesarHome
-
- Las soluciones propuestas en distintos sitios web no han producido el resultado esperado, 
- por tanto: para esta práctica, se pueden dejar SIN HACER.
-
- */
