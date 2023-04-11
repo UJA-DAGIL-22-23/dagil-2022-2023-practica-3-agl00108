@@ -64,7 +64,7 @@ describe('Servidor PLANTILLA:', () => {
     });
   })
 
-  it('Devuelve un vector de tamaño tamano al consultar mediante getTodas', (done) => {
+  it('Devuelve un vector distinto de 0 al consultar mediante getTodas', (done) => {
     supertest(app)
       .get('/getTodas')
       .expect(200)
@@ -88,6 +88,7 @@ describe('Servidor PLANTILLA:', () => {
       .end((error) => { error ? done.fail(error) : done(); }
       );
   });
+  
   it('Devuelve Alba al recuperar los datos de la Persona con id 358470619171389645 mediante setCampos', (done) => {
     const NOMBRE_TEST= 'Alba'
     const APELLIDOS_TEST= 'Gómez Liébana'

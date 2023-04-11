@@ -3,7 +3,7 @@
  * @description Fichero con la especificación de pruebas para la aplicación API-gateway
  * Este fichero DEBE llamarse server-spec.js
  * Este fichero DEBE ubicarse en el subdirectorio spec/
- * @author Alba Gómez Liébana <agl00108@readonly.ujaen.es>
+ * @author Alba Gómez Liébana <agl00108@red.ujaen.es>
  * @date 03-feb-2023
  */
 
