@@ -5,8 +5,6 @@
  * @date 03-feb-2023
  */
 
-// SPECS para Jasmine
-
 // Constantes para usar en las pruebas
 const elementoTitulo = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_TITULO)
 const elementoContenido = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_CONTENIDO)
@@ -30,12 +28,8 @@ function esperar(ms) {
     }
 }
 
-//VECTORES DE PRUEBA PARA DISTINTOS EXPECT
-
-
-// SPECS a probar
-
-describe("Plantilla.mostrarHome: ", function () {
+describe("Plantilla.mostrarHome: ", function () 
+{
 
     it("muestra datos nulos cuando le pasamos un valor nulo",
         function () {
@@ -73,7 +67,8 @@ describe("Plantilla.mostrarHome: ", function () {
 })
 
 
-describe("Plantilla.mostrarAcercaDe(): ", function () {
+describe("Plantilla.mostrarAcercaDe(): ", function () 
+{
     it("muestra datos nulos cuando le pasamos un valor nulo",
         function () {
             Plantilla.mostrarAcercaDe()
@@ -128,14 +123,19 @@ describe("Plantilla.mostrarAcercaDe(): ", function () {
 describe("Plantilla.cabeceraTableNombre():", function () 
 {
     it("debería devolver las etiquetas HTML para la cabecera de la tabla",
-        function () {
+        function () 
+        {
             expect(Plantilla.cabeceraTableNombre()).toBe(`<table class="listado-nombres"><thead><th>Nombre del deportista</th></thead><tbody><a href="javascript:Plantilla.listarAlf()" class="opcion-principal mostrar"title="Listar todos los nombres de los deportistas en la base de datos en órden alfabético">Ordenar Alfabéticamente</a>`);
         })
 })
 
-describe("Plantilla.cuerpoTrNombre", function () 
+describe("Plantilla.cuerpoTrNombre():", function () 
 {
-    let vector = {}
+    it("debería devolver una fila de tabla con los nombres de los deportistas",
+        function () 
+        {
+            //Definimos las constantes que vamos a usar
+            let vector = {}
             vector.data = [
                 {
                     ref: {
@@ -158,9 +158,6 @@ describe("Plantilla.cuerpoTrNombre", function ()
                     }
                 }
             ]
-
-    it("debería devolver una fila de tabla con los nombres de los deportistas",
-        function () {
             for (let i = 0; i < vector.data.length; ++i) 
             {
                 let msj = Plantilla.cuerpoTrNombre(vector.data[i])
@@ -174,7 +171,8 @@ describe("Plantilla.cuerpoTrNombre", function ()
 describe("Plantilla.pieTableNombre():", function () 
 {
     it("debería devolver las etiquetas HTML para el pie de tabla",
-        function () {
+        function () 
+        {
             expect(Plantilla.pieTableNombre()).toBe("</tbody></table>");
         })
 })
@@ -182,7 +180,9 @@ describe("Plantilla.pieTableNombre():", function ()
 describe("Plantilla.imprimeDeportistas(): ", function () 
     {
         it("Observa si los nombres se muestran",
-        function () {
+        function () 
+        {
+            //Preparamos los datos que vamos a usar
             let vector = {}
             vector.data = [
                 {
@@ -207,16 +207,19 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
                 }
             ]
             Plantilla.imprimeDeportistas(vector)
-            // Compruebo que en el primer TD De la tabla se ha escrito Luis
+            // Compruebo que en el primer TD De la tabla se ha escrito Luis de dos formas
             expect(elementoContenido.getElementsByTagName("td")[0].innerText.search('Luis') >= 0).toBeTrue()
             expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Luis')).toBeTrue()
+            expect(elementoContenido.getElementsByTagName("td")[1].innerText.search('Ana') >= 0).toBeTrue()
+            expect(elementoContenido.getElementsByTagName("td")[1].innerText.includes('Ana')).toBeTrue()
         })
     })
 
     describe("Plantilla.imprimeDeportistasAlf(): ", function () 
     {
         it("Observa si los nombres se ordenan alfabéticamente",
-        function () {
+        function () 
+        { //Preparamos los datos que vamos a usar
             let vector = {}
             vector.data = [
                 {
@@ -243,6 +246,7 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
             Plantilla.imprimeDeportistasAlf(vector)
             // Compruebo que en el primer TD De la tabla se ha escrito Ana
             expect(elementoContenido.getElementsByTagName("td")[0].innerText.includes('Ana')).toBeTrue()
+            expect(elementoContenido.getElementsByTagName("td")[1].innerText.includes('Luis')).toBeTrue()
         })
     })
 
@@ -255,8 +259,11 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
     })
 
     describe("Plantilla.cuerpoTr():", function () 
-    {
-        let vector = {}
+    {  
+        it("debería devolver una fila de tabla con los datos de los deportistas",
+        function () 
+        { //Primero preparamos los datos
+            let vector = {}
             vector.data = [
                 {
                     ref: {
@@ -306,11 +313,7 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
                         sexo: "M"
                     }
                 }
-            ]   
-        // Realizo los expect
-        it("debería devolver una fila de tabla con los datos de los deportistas",
-        function () 
-        {
+            ] //Vemos para cada persona si incluye los campos necesarios
             for (let i = 0; i < vector.data.length; ++i) 
             {
                 let msj = Plantilla.cuerpoTr(vector.data[i])
@@ -343,7 +346,7 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
     {
         it("Observa si los datos se muestran",
         function () {
-            //Primero preparamos unos datos estáticos
+            //Primero preparamos unos datos de prueba
             let vector = {}
             vector.data = [
                 {
@@ -379,9 +382,9 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
         })
     })
 
-    describe("Plantilla.imprimeDeportista: ", function () 
+    describe("Plantilla.imprimeDeportista(): ", function () 
     {
-        it("Observa si los datos se muestran",
+        it("Observa si los datos se muestran correctamente",
         function () {
             //Primero preparamos unos datos estáticos
             let vector = {}
@@ -509,7 +512,7 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
         })
     })
 
-    describe("Plantilla.modificarNombre", () => {
+    describe("Plantilla.modificarNombre():", () => {
         it("Muestra correctamente el formulario incluso si el objeto deportista tiene valores faltantes o nulos", () => {
         const deportista = {
             ref: { "@ref": { id: "123456789" } },
@@ -542,7 +545,7 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
         })
     })
 
-    describe("Plantilla.modificarNombre", () => {
+    describe("Plantilla.modificarCampos():", () => {
         it("Muestra correctamente el formulario incluso si el objeto deportista tiene valores faltantes o nulos", () => {
         const deportista = {
             ref: { "@ref": { id: "123456789" } },
@@ -648,7 +651,7 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
         })
     })
 
-    describe("Plantilla.nuevoDeportista", () => 
+    describe("Plantilla.nuevoDeportista():", () => 
     {
         it("Se muestra correctamente el formulario", () => 
         {
