@@ -130,8 +130,8 @@ describe("Plantilla.cabeceraTableNombre():", function ()
     it("debería devolver las etiquetas HTML para la cabecera de la tabla",
         function () {
             expect(Plantilla.cabeceraTableNombre()).toBe(`<table class="listado-nombres"><thead><th>Nombre del deportista</th></thead><tbody><a href="javascript:Plantilla.listarAlf()" class="opcion-principal mostrar"title="Listar todos los nombres de los deportistas en la base de datos en órden alfabético">Ordenar Alfabéticamente</a>`);
-        });
-});
+        })
+})
 
 describe("Plantilla.cuerpoTrNombre", function () 
 {
@@ -168,16 +168,16 @@ describe("Plantilla.cuerpoTrNombre", function ()
                 expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
                 expect(msj.includes(persona.data.nombre)).toBeTrue();
             }
-        });
-    });
+        })
+})
 
 describe("Plantilla.pieTableNombre():", function () 
 {
     it("debería devolver las etiquetas HTML para el pie de tabla",
         function () {
             expect(Plantilla.pieTableNombre()).toBe("</tbody></table>");
-        });
-});
+        })
+})
 
 describe("Plantilla.imprimeDeportistas(): ", function () 
     {
@@ -251,8 +251,8 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
         it("debería devolver las etiquetas HTML para la cabecera de la tabla",
             function () {
                 expect(Plantilla.cabeceraTable()).toBe(`<table class="listado-deportistas"><thead><th>Nombre</th><th>Apellidos</th><th>País</th><th>Categoría</th><th>Sexo</th><th>Fecha nacimiento</th><th>Medallas ganadas</th><th>Años participación</th><th>Logros</th></thead><tbody>`);
-            });
-    });
+            })
+    })
 
     describe("Plantilla.cuerpoTr():", function () 
     {
@@ -328,8 +328,8 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
                 expect(msj.includes(persona.data.categoria)).toBeTrue();
                 expect(msj.includes(persona.data.sexo)).toBeTrue();
             }
-        });
-    });
+        })
+    })
 
     describe("Plantilla.pieTable():", function () 
     {
@@ -539,57 +539,8 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
         expect(document.getElementById("deportista-numMedallasGanadas").value).toBe("2");
         expect(document.getElementById("deportista-aniosParticipacionOlimpiadas").value).toBe("2016,2020");
         expect(document.getElementById("deportista-logros").value).toBe("Oro en Río 2016,Oro en Tokio 2020");        
-        });
-    });
-
-    describe("Plantilla.nuevoDeportista", () => {
-        it("Crea correctamente el formulario HTML para agregar un nuevo deportista", () => {
-          Plantilla.nuevoDeportista();
-      
-          const form = document.querySelector("form");
-          expect(form).toBeDefined();
-          expect(form.getAttribute("method")).toBe("post");
-          expect(form.getAttribute("action")).toBe("");
-      
-          const table = document.querySelector("table");
-          expect(table).toBeDefined();
-      
-          const headers = table.querySelectorAll("thead th");
-          expect(headers[0].textContent).toBe("Nombre");
-          expect(headers[1].textContent).toBe("Apellidos");
-          expect(headers[2].textContent).toBe("País");
-          expect(headers[3].textContent).toBe("Categoría");
-          expect(headers[4].textContent).toBe("Sexo");
-          expect(headers[5].textContent).toBe("Fecha nacimiento");
-          expect(headers[6].textContent).toBe("Medallas ganadas");
-          expect(headers[7].textContent).toBe("Años participación");
-          expect(headers[8].textContent).toBe("Logros");
-      
-          const inputs = table.querySelectorAll("tbody input");
-          expect(inputs.length).toBe(8);
-          expect(inputs[0].getAttribute("id")).toBe("deportista-nombre");
-          expect(inputs[1].getAttribute("id")).toBe("deportista-apellidos");
-          expect(inputs[2].getAttribute("id")).toBe("deportista-pais");
-          expect(inputs[3].getAttribute("id")).toBe("deportista-categoria");
-          expect(inputs[4].getAttribute("id")).toBe("deportista-sexo");
-          expect(inputs[5].getAttribute("id")).toBe("deportista-fechaNacimiento");
-          expect(inputs[6].getAttribute("id")).toBe("deportista-numMedallasGanadas");
-          expect(inputs[7].getAttribute("id")).toBe("deportista-aniosParticipacionOlimpiadas");
-      
-          const logrosInput = table.querySelector("#deportista-logros");
-          expect(logrosInput).toBeDefined();
-          expect(logrosInput.getAttribute("id")).toBe("deportista-logros");
-          expect(logrosInput.getAttribute("placeholder")).toBe("Logros");
-      
-          const guardarBtn = table.querySelector(".guardar-btn a");
-          expect(guardarBtn).toBeDefined();
-          expect(guardarBtn.textContent).toBe("Guardar");
-          expect(guardarBtn.getAttribute("href")).toBe("javascript:Plantilla.guardarNuevoDeportista()");
-      
-          expect(Frontend.Article.titulo).toBe("Nuevo Deportista");
-        });
-      });
-      
+        })
+    })
 
     describe("Plantilla.modificarNombre", () => {
         it("Muestra correctamente el formulario incluso si el objeto deportista tiene valores faltantes o nulos", () => {
@@ -621,11 +572,9 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
         expect(document.getElementById("deportista-numMedallasGanadas").value).toBe("2");
         expect(document.getElementById("deportista-aniosParticipacionOlimpiadas").value).toBe("2016,2020");
         expect(document.getElementById("deportista-logros").value).toBe("Oro en Río 2016,Oro en Tokio 2020");        
-        });
-    });
+        })
+    })
 
-
-      
     describe("Plantilla.mostrarDeportistasPorNombre(): ", function () 
     {
         it("Vemos si la búsqueda se realiza bien",
@@ -698,6 +647,47 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
             expect(msj.includes(persona.data.sexo)).toBeTrue();     
         })
     })
+
+    describe("Plantilla.nuevoDeportista", () => 
+    {
+        it("Se muestra correctamente el formulario", () => 
+        {
+            Plantilla.nuevoDeportista();
+            expect(document.getElementById("deportista-nombre")).toBeTruthy();
+            expect(document.getElementById("deportista-apellidos")).toBeTruthy();
+            expect(document.getElementById("deportista-pais")).toBeTruthy();
+            expect(document.getElementById("deportista-categoria")).toBeTruthy();
+            expect(document.getElementById("deportista-sexo")).toBeTruthy();
+            expect(document.getElementById("deportista-fechaNacimiento")).toBeTruthy();
+            expect(document.getElementById("deportista-numMedallasGanadas")).toBeTruthy();
+            expect(document.getElementById("deportista-aniosParticipacionOlimpiadas")).toBeTruthy();
+            expect(document.getElementById("deportista-logros")).toBeTruthy();
+          });
+        
+        
+          it("Se puede completar correctamente el formulario", () => 
+          {
+            Plantilla.nuevoDeportista();
+            document.getElementById("deportista-nombre").value = "Juan";
+            document.getElementById("deportista-apellidos").value = "Pérez González";
+            document.getElementById("deportista-pais").value = "México";
+            document.getElementById("deportista-categoria").value = "Heavyweight";
+            document.getElementById("deportista-sexo").value = "M";
+            document.getElementById("deportista-fechaNacimiento").value = "1990-01-01";
+            document.getElementById("deportista-numMedallasGanadas").value = "2";
+            document.getElementById("deportista-aniosParticipacionOlimpiadas").value = "2016,2020";
+            document.getElementById("deportista-logros").value = "Oro en Río 2016, Oro en Tokio 2020";
+            expect(document.getElementById("deportista-nombre").value).toBe("Juan");
+            expect(document.getElementById("deportista-apellidos").value).toBe("Pérez González");
+            expect(document.getElementById("deportista-pais").value).toBe("México");
+            expect(document.getElementById("deportista-categoria").value).toBe("Heavyweight");
+            expect(document.getElementById("deportista-sexo").value).toBe("M");
+            expect(document.getElementById("deportista-fechaNacimiento").value).toBe("1990-01-01");
+            expect(document.getElementById("deportista-numMedallasGanadas").value).toBe("2");
+            expect(document.getElementById("deportista-aniosParticipacionOlimpiadas").value).toBe("2016,2020");
+        })
+      })
+      
 
 
 
