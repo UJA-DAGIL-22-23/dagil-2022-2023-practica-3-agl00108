@@ -30,7 +30,7 @@ Plantilla.cabeceraTableNombre = function () {
 
 /**
  * Muestra el nombre de cada deportista en un elemento TR con sus correspondientes TD
- * @param {deportista} p Datos del deportista a mostrar con los nombres de los deportistas
+ * @param {deportista} deportista Datos del deportista a mostrar con los nombres de los deportistas
  * @returns Cadena conteniendo todo el elemento TR que muestra los nombres.
  */
 Plantilla.cuerpoTrNombre = function (p) {
@@ -61,7 +61,7 @@ Plantilla.cabeceraTable = function () {
 
 /**
  * Muestra la información de cada deportista en un elemento TR con sus correspondientes TD
- * @param {deportista} p Datos del deportista a mostrar con sus datos
+ * @param {deportista} deportista Datos del deportista a mostrar con sus datos
  * @returns Cadena conteniendo todo el elemento TR que muestra el deportista.
  */
 Plantilla.cuerpoTr = function (p) {
@@ -230,7 +230,7 @@ Plantilla.mostrarAcercaDe = function (datosDescargados) {
 
 //FUNCIONES CREADAS PARA FUNCIONALIDADES
 /**
- * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD.
+ * Función para mostrar en pantalla todos los deportistas que se han recuperado de la BBDD.
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
  */
 Plantilla.imprimeDeportistas = function (vector) {
@@ -240,12 +240,11 @@ Plantilla.imprimeDeportistas = function (vector) {
     vector.data.forEach(e => msj += Plantilla.cuerpoTrNombre(e))
     msj += Plantilla.pieTableNombre();
 
-    // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Listado de los nombres de los deportistas", msj)
 }
 
 /**
- * Función para mostrar en pantalla todas los deportistas que se han recuperado de la BBDD alfabéticamente
+ * Función para mostrar en pantalla todos los deportistas que se han recuperado de la BBDD alfabéticamente
  * @param {Vector_de_deportistas} vector Vector con los datos de los deportistas a mostrar
  */
 Plantilla.imprimeDeportistasAlf = function (vector) {
@@ -255,7 +254,6 @@ Plantilla.imprimeDeportistasAlf = function (vector) {
     ordenados.forEach(e => msj += Plantilla.cuerpoTrNombre(e));
     msj += Plantilla.pieTableNombre();
 
-    // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Listado de los nombres de los deportistas ordenados alfabéticamente", msj);
 }
 
@@ -269,12 +267,11 @@ Plantilla.imprimeCompleto = function (vector) {
     vector.data.forEach(e => msj += Plantilla.cuerpoTr(e))
     msj += Plantilla.pieTable();
 
-    // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Listado de deportistas completo", msj)
 }
 
 /**
- * Función para mostrar en pantalla todos los datos de un deportista que se han recuperado de la BBDD
+ * Función para mostrar en pantalla todos los datos de un deportista que se ha recuperado de la BBDD
  * @param {Deportista} deportistaUnico con los datos de los deportistas a mostrar
  */
 Plantilla.imprimeDeportista = function (deportistaUnico) {
@@ -283,7 +280,6 @@ Plantilla.imprimeDeportista = function (deportistaUnico) {
     msj += Plantilla.cuerpoTr(deportistaUnico)
     msj += Plantilla.pieTable();
 
-    // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Datos del deportista solicitado", msj)
 }
 
@@ -320,13 +316,13 @@ Plantilla.imprimePorCampo = function (campoOrden, vector) {
   */
 Plantilla.mostrarDeportistasPorNombre = function (busqueda, vector) {
     const match = busqueda.match(/"(.*?)"/);
-    if (!match) 
-    {
-    return "";
+    if (!match) {
+        return "";
     }
     const nombreBuscado = match[1];
-    //Filtramos para obtener su nombre
-    const deportistasFiltrados = vector.data.filter(deportista => deportista.data.nombre === nombreBuscado);
+
+    // Filtramos para obtener los deportistas cuyo nombre comienza por el valor de búsqueda
+    const deportistasFiltrados = vector.data.filter(deportista => deportista.data.nombre.toLowerCase().startsWith(nombreBuscado.toLowerCase()));
 
     let msj = "";
     msj += Plantilla.cabeceraTable();
@@ -335,6 +331,7 @@ Plantilla.mostrarDeportistasPorNombre = function (busqueda, vector) {
     Frontend.Article.actualizar("Listado de deportistas completo ordenado ", msj);
     return msj;
 }
+
 
 /**
  * Función que te muestra un formulario para modificar el nombre de un deportista
@@ -438,7 +435,6 @@ Plantilla.modificarCampos = function (deportista) {
     Frontend.Article.actualizar("Modifica los campos del deportista", msj)
 }
 
-
 /**
  * Función para guardar un nuevo deportista en la base de datos
  */
@@ -446,8 +442,6 @@ Plantilla.guardarNuevoDeportista = async function () {
     try {
         let url = Frontend.API_GATEWAY + "/plantilla/setNuevoDeportista";
         const response = await fetch(url, {
-            // Víctor: 05-04-2023
-            // Cabecera correcta para enivar datos y que no fastidie el tema de CORS
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
