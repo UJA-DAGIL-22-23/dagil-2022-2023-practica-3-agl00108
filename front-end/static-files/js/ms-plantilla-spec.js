@@ -509,42 +509,124 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
         })
     })
 
-    describe("Plantilla.modificarNombre(): ", function () 
-    {
-        it("Vemos si el formulario se muestra bien",
-        function () {
-            deportista = {
-                ref: {
-                  "@ref": {
-                    id: "123"
-                  }
+    describe("Plantilla.modificarNombre", () => {
+        it("Muestra correctamente el formulario incluso si el objeto deportista tiene valores faltantes o nulos", () => {
+        const deportista = {
+            ref: { "@ref": { id: "123456789" } },
+            data: {
+                nombre: "Juan",
+                apellidos: "Pérez González",
+                pais: "",
+                categoria: "Heavyweight",
+                sexo: null,
+                fechaNacimiento: {
+                    dia: 1,
+                    mes: 1,
+                    anio: 1990,
                 },
-                data: {
-                  nombre: "Lidia",
-                  apellidos: "Valentin Perez",
-                  fechaNacimiento: {
-                    dia: 13,
-                    mes: 5,
-                    anio: 1985
-                  },
-                  aniosParticipacionOlimpiadas: [2008, 2012, 2016, 2020],
-                  numMedallasGanadas: 3,
-                  logros: [
-                    "Plata en Beijing 2008",
-                    "Oro en Londres 2012",
-                    "Bronce en Río 2016"
-                  ],
-                  pais: "Spain",
-                  categoria: "Heavyweight",
-                  sexo: "F"
-                }
-              };
-    //Plantilla.modificarNombre(deportista);
-    //expect(Plantilla.modificarNombre).toBe(msj);        
-        })
-    })
+                aniosParticipacionOlimpiadas: [2016, 2020],
+                numMedallasGanadas: 2,
+                logros: ["Oro en Río 2016", "Oro en Tokio 2020"],
+                }    
+        };
+        Plantilla.modificarNombre(deportista);
+        // Verificar que el formulario se muestra correctamente
+        expect(document.getElementById("deportista-nombre").value).toBe("Juan");
+        expect(document.getElementById("deportista-apellidos").value).toBe("Pérez González");
+        expect(document.getElementById("deportista-pais").value).toBe("");
+        expect(document.getElementById("deportista-categoria").value).toBe("Heavyweight");
+        expect(document.getElementById("deportista-sexo").value).toBe('null');
+        expect(document.getElementById("deportista-numMedallasGanadas").value).toBe("2");
+        expect(document.getElementById("deportista-aniosParticipacionOlimpiadas").value).toBe("2016,2020");
+        expect(document.getElementById("deportista-logros").value).toBe("Oro en Río 2016,Oro en Tokio 2020");        
+        });
+    });
 
-    describe("mostrarDeportistasPorNombre(): ", function () 
+    describe("Plantilla.nuevoDeportista", () => {
+        it("Crea correctamente el formulario HTML para agregar un nuevo deportista", () => {
+          Plantilla.nuevoDeportista();
+      
+          const form = document.querySelector("form");
+          expect(form).toBeDefined();
+          expect(form.getAttribute("method")).toBe("post");
+          expect(form.getAttribute("action")).toBe("");
+      
+          const table = document.querySelector("table");
+          expect(table).toBeDefined();
+      
+          const headers = table.querySelectorAll("thead th");
+          expect(headers[0].textContent).toBe("Nombre");
+          expect(headers[1].textContent).toBe("Apellidos");
+          expect(headers[2].textContent).toBe("País");
+          expect(headers[3].textContent).toBe("Categoría");
+          expect(headers[4].textContent).toBe("Sexo");
+          expect(headers[5].textContent).toBe("Fecha nacimiento");
+          expect(headers[6].textContent).toBe("Medallas ganadas");
+          expect(headers[7].textContent).toBe("Años participación");
+          expect(headers[8].textContent).toBe("Logros");
+      
+          const inputs = table.querySelectorAll("tbody input");
+          expect(inputs.length).toBe(8);
+          expect(inputs[0].getAttribute("id")).toBe("deportista-nombre");
+          expect(inputs[1].getAttribute("id")).toBe("deportista-apellidos");
+          expect(inputs[2].getAttribute("id")).toBe("deportista-pais");
+          expect(inputs[3].getAttribute("id")).toBe("deportista-categoria");
+          expect(inputs[4].getAttribute("id")).toBe("deportista-sexo");
+          expect(inputs[5].getAttribute("id")).toBe("deportista-fechaNacimiento");
+          expect(inputs[6].getAttribute("id")).toBe("deportista-numMedallasGanadas");
+          expect(inputs[7].getAttribute("id")).toBe("deportista-aniosParticipacionOlimpiadas");
+      
+          const logrosInput = table.querySelector("#deportista-logros");
+          expect(logrosInput).toBeDefined();
+          expect(logrosInput.getAttribute("id")).toBe("deportista-logros");
+          expect(logrosInput.getAttribute("placeholder")).toBe("Logros");
+      
+          const guardarBtn = table.querySelector(".guardar-btn a");
+          expect(guardarBtn).toBeDefined();
+          expect(guardarBtn.textContent).toBe("Guardar");
+          expect(guardarBtn.getAttribute("href")).toBe("javascript:Plantilla.guardarNuevoDeportista()");
+      
+          expect(Frontend.Article.titulo).toBe("Nuevo Deportista");
+        });
+      });
+      
+
+    describe("Plantilla.modificarNombre", () => {
+        it("Muestra correctamente el formulario incluso si el objeto deportista tiene valores faltantes o nulos", () => {
+        const deportista = {
+            ref: { "@ref": { id: "123456789" } },
+            data: {
+                nombre: "Juan",
+                apellidos: "Pérez González",
+                pais: "",
+                categoria: "Heavyweight",
+                sexo: null,
+                fechaNacimiento: {
+                    dia: 1,
+                    mes: 1,
+                    anio: 1990,
+                },
+                aniosParticipacionOlimpiadas: [2016, 2020],
+                numMedallasGanadas: 2,
+                logros: ["Oro en Río 2016", "Oro en Tokio 2020"],
+                }    
+        };
+        Plantilla.modificarCampos(deportista);
+        // Verificar que el formulario se muestra correctamente
+        expect(document.getElementById("deportista-nombre").value).toBe("Juan");
+        expect(document.getElementById("deportista-apellidos").value).toBe("Pérez González");
+        expect(document.getElementById("deportista-pais").value).toBe("");
+        expect(document.getElementById("deportista-categoria").value).toBe("Heavyweight");
+        expect(document.getElementById("deportista-sexo").value).toBe('null');
+        expect(document.getElementById("deportista-numMedallasGanadas").value).toBe("2");
+        expect(document.getElementById("deportista-aniosParticipacionOlimpiadas").value).toBe("2016,2020");
+        expect(document.getElementById("deportista-logros").value).toBe("Oro en Río 2016,Oro en Tokio 2020");        
+        });
+    });
+
+
+      
+    describe("Plantilla.mostrarDeportistasPorNombre(): ", function () 
     {
         it("Vemos si la búsqueda se realiza bien",
         function () {
