@@ -10,40 +10,46 @@
 
 * {
     font-family: 'Source Sans Pro', sans-serif;
-}
-
-#seccion-principal 
-{
+  }
+  
+  #seccion-principal {
     width: 100%;
-}
-.mostrar 
-{
+  }
+  
+  .mostrar {
     display: inline-block;
-}
-
-.opcion-principal 
-{
-    border: 2px solid rgba(10, 22, 75, 0.5);
+  }
+  
+  .opcion-principal {
+    border: 2px solid rgba(79, 129, 189, 0.5);
     border-radius: .5em 0 .5em 0;
     padding: .5em;
     text-decoration: none;
-    background-color: rgba(20, 49, 153, 0.2);
-    color: inherit;
-}
-
-.opcion-principal:hover  
-{
-    background-color: rgba(53, 98, 187, 0.3);
-}
-
-h1 
-{
-    color: #2f0ec1;
-    text-shadow: #030930 2px 2px 3px;
-}
-
-body
-{
-    background-color: rgb(169, 206, 232);
-}
-
+    background-color: rgba(79, 129, 189, 0.1);
+    color: #1e304d;
+  }
+  
+  .opcion-principal:hover {
+    background-color: rgba(79, 129, 189, 0.2);
+  }
+  
+  h1 {
+    color: #1e304d;
+    background-color: #f7d1d1;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  h1 span {
+    display: block;
+    font-size: 0.5em;
+    color: #ff6b6b;
+    font-style: italic;
+  }
+  
+  body {
+    background-image: url('../images/fondo.jpeg');
+    background-position: center;
+    color:#1e304d;
+  }
+  

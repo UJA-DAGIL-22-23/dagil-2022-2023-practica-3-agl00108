@@ -7,7 +7,7 @@
  table.listado-nombres 
  {
     width: 30%;
-    border: 1px solid rgba(81, 80, 80, 0.8);
+    border: 1px solid #f7d1d1;
 }
 
 table.listado-nombres thead th,
@@ -15,14 +15,14 @@ table.listado-nombres tbody th
 {
     margin: 3px;
     height: 2.5em;
-    background-color: rgb(203, 87, 179);
+    background-color: #f7d1d1;
     text-transform: uppercase;
 
 }
 
 table.listado-nombres tbody th 
 {
-    background-color: rgba(177, 39, 159, 0.1);
+    background-color: rgba(154, 177, 223, 0.5);
 }
 
 table.listado-nombres tbody td 
@@ -34,13 +34,13 @@ table.listado-nombres tbody td
 table.listado-nombres tbody tr 
 {
     margin: 3px;
-    background-color: rgba(0, 0, 100, 0.1)
+    background-color: rgba(154, 177, 223, 0.5);
 }
 
 table.listado-deportistas 
 {
     width: 100%;
-    border: 1px solid rgba(81, 80, 80, 0.8);
+    border: 1px solid #ff6b6b;
     empty-cells: hide;
     border-collapse: separate;
     width: 100%;
@@ -51,13 +51,13 @@ table.listado-deportistas tbody th
 {
     margin: 3px;
     height: 2.5em;
-    background-color: rgb(203, 87, 179);
+    background-color: #f7d1d1;
     text-transform: uppercase;
 }
 
 table.listado-deportistas tbody th 
 {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: 3
 }
 
 table.listado-deportistas tbody td 
@@ -70,11 +70,11 @@ table.listado-deportistas tbody tr
 {
     margin: 3px;
     height: 2em;
-    background-color: rgba(0, 0, 100, 0.1)
+    background-color: rgba(154, 177, 223, 0.5);
 }
 
 .guardar-btn {
-    background-color: rgb(203, 87, 179);
+    background-color: #ff6b6b;
     color: #FFF;
     padding: 10px;
     border-radius: 5px;
@@ -82,7 +82,7 @@ table.listado-deportistas tbody tr
   }
   
   .guardar-btn:hover {
-    background-color: rgba(0, 0, 100, 0.1);
+    background-color: rgba(154, 177, 223, 0.5);
     cursor: pointer;
   }
   
@@ -92,8 +92,3 @@ table.listado-deportistas tbody tr
     font-weight: bold;
   }
   
-  
-  
- 
- 
-
