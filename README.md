@@ -293,7 +293,6 @@ https://trello.com/b/NUf276Yx/practica3
    ##### -Muestra los nombres de los deportistas ordenados alfabéticamente
    
    <img width="728" alt="image" src="https://user-images.githubusercontent.com/124689598/225988327-c2c2b9ea-dffd-40da-a3a7-b467f5c16b47.png">
-   
    ## 💻 INCREMENTO 2
    #### Finalizado el 21/03/2023
    ##### Captura inicial Trello
@@ -312,4 +311,46 @@ https://trello.com/b/NUf276Yx/practica3
  
    ##### -Se muestra la información de todos los deportistas ordenados por un campo
    <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/226607603-0e6e79d4-141b-4d81-81b0-d06bb5925bc3.png">
+   
+   ## 💻 INCREMENTO 3
+   #### Finalizado el 11/04/2023
+   ##### Captura inicial Trello
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231210959-947a6297-1e3d-4eb9-b3bd-4ac83aff0e1d.png">
+   
+   ##### Captura final Trello
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231211288-727d74fc-cdfb-4323-8ed9-2be964ad3fca.png">
+   Se han completado todas las funcionalidades que esperaba hacer.
+
+   En el incremento se han implementado cuatro nuevas funcionalidades, además, se ha mejorado la interfaz del usuario adaptando los botones a cada vista y modificando la apariencia.
+   
+   ##### -Al pulsar "Editar Nombre" se podrá editar el nombre del deportista
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231212674-3281dfd5-538b-4779-980e-c12e2f08e46e.png">
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231212919-f4af7e3b-a628-4229-8c3e-5ec4c6a700fc.png">
+
+
+   ##### -Al pulsar "Editar" se podrán editar hasta 3 campos del deportistas
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231212674-3281dfd5-538b-4779-980e-c12e2f08e46e.png">
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231213062-83c75ba6-0b54-4a5d-aa99-a201ba9ef789.png">
+
+
+
+   ##### -Al pulsar "Crear Deportista" se podrá añadir un nuevo deportista 
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231213315-4f9bd51d-e7d5-4a55-9255-c346aa6d0f82.png">
+   
+   Un ejemplo sería:
+   
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231213661-21f9d8ad-66f1-48b1-a35f-79fa256e5cb1.png">
+   
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231213801-3d7c3cf2-1ec3-43bb-8123-9c16e01c905b.png">
+
+   ##### -Al pulsar "Búsqueda" se podrá introducir el nombre de un jugador para verlo
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231214144-f04dba0d-5c96-4d4d-802d-97c8b2e7989b.png">
+   
+   <img width="700" alt="image" src="https://user-images.githubusercontent.com/124689598/231214218-d52938de-5c1f-4154-b182-417deb937d18.png">
+
+   
+   
+
+
+
 
