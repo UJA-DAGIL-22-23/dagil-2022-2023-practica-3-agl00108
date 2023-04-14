@@ -690,9 +690,3 @@ describe("Plantilla.imprimeDeportistas(): ", function ()
             expect(document.getElementById("deportista-aniosParticipacionOlimpiadas").value).toBe("2016,2020");
         })
       })
-      
-
-
-
-    
-
